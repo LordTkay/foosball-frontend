@@ -1,0 +1,26 @@
+:host {
+  display: block;
+  max-width: 80rem;
+  margin-inline: auto;
+}
+
+.nav {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.nav-item {
+  text-decoration: none;
+  color: inherit;
+
+  display: block;
+  padding: 0.5rem 1rem;
+  background-color: lightgray;
+
+  &.active {
+    background-color: lightcoral;
+    color: white;
+    font-weight: bold;
+  }
+}

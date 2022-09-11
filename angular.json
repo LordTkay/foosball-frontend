@@ -31,6 +31,7 @@
               "src/assets"
             ],
             "styles": [
+              "src/reset.scss",
               "src/styles.scss"
             ],
             "scripts": []
@@ -69,6 +70,9 @@
           "defaultConfiguration": "production"
         },
         "serve": {
+          "options": {
+            "proxyConfig": "proxy-conf.json"
+          },
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
@@ -99,6 +103,7 @@
               "src/assets"
             ],
             "styles": [
+              "src/reset.scss",
               "src/styles.scss"
             ],
             "scripts": []
@@ -107,5 +112,8 @@
       }
     }
   },
-  "defaultProject": "foosball-frontend"
+  "defaultProject": "foosball-frontend",
+  "cli": {
+    "analytics": false
+  }
 }
