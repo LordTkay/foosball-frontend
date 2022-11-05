@@ -1,0 +1,19 @@
+@use "../abstract/mixins/property" as *;
+@use "../abstract/variables";
+
+
+:root {
+  @include get-property-map(variables.$colors) using($key, $value) {
+    --color-#{$key}: #{$value};
+  }
+}
+
+@include get-property-map(variables.$colors) using($key, $value) {
+  .clr-#{$key} {
+    color: var(--color-#{$key});
+  }
+
+  .clr-bg-#{$key} {
+    background-color: var(--color-#{$key});
+  }
+}

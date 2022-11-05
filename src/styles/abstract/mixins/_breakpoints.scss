@@ -1,0 +1,18 @@
+@use "../variables/breakpoints";
+
+@function breakpoint-up($breakpoint-key, $breakpoints) {
+  $breakpoint-value: map-get($breakpoints, $breakpoint-key);
+  @return if($breakpoint-value != 0, $breakpoint-value, null);
+}
+
+@mixin media-breakpoint-up($breakpoint-key, $breakpoints: breakpoints.$breakpoints) {
+  $breakpoint-value: breakpoint-up($breakpoint-key, $breakpoints);
+  @debug $breakpoint-value;
+  @if $breakpoint-value {
+    @media (min-width: $breakpoint-value) {
+      @content
+    }
+  } @else {
+    @content
+  }
+}
