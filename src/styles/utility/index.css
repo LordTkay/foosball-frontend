@@ -1,5 +1,13 @@
 :root {
-  --color-primary-400: #74be0d;
+  --color-primary-400: #43b94e;
+  --color-neutral-100: white;
+  --color-neutral-200: #e8e8e8;
+  --color-neutral-300: #d9d9d9;
+  --color-neutral-400: #c7c7c7;
+  --color-neutral-500: #b0b0b0;
+  --color-neutral-600: #919191;
+  --color-neutral-700: #727272;
+  --color-neutral-800: #3d3d3d;
   --color-neutral-900: #151515;
 }
 
@@ -9,6 +17,70 @@
 
 .clr-bg-primary-400 {
   background-color: var(--color-primary-400);
+}
+
+.clr-neutral-100 {
+  color: var(--color-neutral-100);
+}
+
+.clr-bg-neutral-100 {
+  background-color: var(--color-neutral-100);
+}
+
+.clr-neutral-200 {
+  color: var(--color-neutral-200);
+}
+
+.clr-bg-neutral-200 {
+  background-color: var(--color-neutral-200);
+}
+
+.clr-neutral-300 {
+  color: var(--color-neutral-300);
+}
+
+.clr-bg-neutral-300 {
+  background-color: var(--color-neutral-300);
+}
+
+.clr-neutral-400 {
+  color: var(--color-neutral-400);
+}
+
+.clr-bg-neutral-400 {
+  background-color: var(--color-neutral-400);
+}
+
+.clr-neutral-500 {
+  color: var(--color-neutral-500);
+}
+
+.clr-bg-neutral-500 {
+  background-color: var(--color-neutral-500);
+}
+
+.clr-neutral-600 {
+  color: var(--color-neutral-600);
+}
+
+.clr-bg-neutral-600 {
+  background-color: var(--color-neutral-600);
+}
+
+.clr-neutral-700 {
+  color: var(--color-neutral-700);
+}
+
+.clr-bg-neutral-700 {
+  background-color: var(--color-neutral-700);
+}
+
+.clr-neutral-800 {
+  color: var(--color-neutral-800);
+}
+
+.clr-bg-neutral-800 {
+  background-color: var(--color-neutral-800);
 }
 
 .clr-neutral-900 {
@@ -893,7 +965,6 @@ mx-auto {
     margin-bottom: auto;
   }
 }
-
 @media (min-width: 20rem) {
   .m-md-0 {
     margin: 0;
@@ -1327,7 +1398,6 @@ mx-auto {
     margin-bottom: auto;
   }
 }
-
 @media (min-width: 30rem) {
   .m-lg-0 {
     margin: 0;
