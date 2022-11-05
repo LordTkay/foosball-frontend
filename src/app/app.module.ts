@@ -6,12 +6,16 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from "@angular/common/http";
 import { registerLocaleData } from "@angular/common";
 import localeDe from '@angular/common/locales/de';
+import { HeaderComponent } from './components/header/header.component';
+import { NavigationComponent } from './components/navigation/navigation.component';
 
 registerLocaleData(localeDe)
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HeaderComponent,
+    NavigationComponent
   ],
   imports: [
     BrowserModule,
