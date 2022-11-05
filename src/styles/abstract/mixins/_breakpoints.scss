@@ -7,7 +7,6 @@
 
 @mixin media-breakpoint-up($breakpoint-key, $breakpoints: breakpoints.$breakpoints) {
   $breakpoint-value: breakpoint-up($breakpoint-key, $breakpoints);
-  @debug $breakpoint-value;
   @if $breakpoint-value {
     @media (min-width: $breakpoint-value) {
       @content
