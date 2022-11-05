@@ -1,0 +1,16 @@
+
+.player {
+
+  &-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  &-table, &-item {
+    border: 1px solid black;
+  }
+}
+
+.red {
+  color: Red;
+}

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { PlayersService } from "./players.service";
+import { Player } from "./player.model";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: 'app-players',
@@ -7,10 +10,36 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PlayersComponent implements OnInit {
 
-  constructor() {
+  // editedPlayers: { [id: number]: Players } = [];
+  editedPlayers = new Map<number, Player>();
+  //      ^?
+  private subscriptions = new Subscription();
+
+  constructor(public playersService: PlayersService) {
   }
 
   ngOnInit(): void {
+
+    const x = "";
+    //    ^?
+    // this.subscriptions.add(this.onPlayersChange())
   }
 
+  onPlayerChange<T extends Player>(event: Event,
+                                   player: T,
+                                   attribute: { [K in keyof Required<T>]: T[K] extends string ? K : never }[keyof T]) {
+    const target = event.target as HTMLTableCellElement;
+    this.editedPlayers.set(player.id, {
+      ...player,
+      ...this.editedPlayers.get(player.id) ?? {},
+      [attribute]: target.innerText
+    })
+  }
+
+
+  // private onPlayersChange() {
+  //   return this.playersService.playerChange$.subscribe(players => {
+  //     // this.players = players;
+  //   });
+  // }
 }
