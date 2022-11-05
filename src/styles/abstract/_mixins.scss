@@ -1,0 +1,13 @@
+
+@mixin get-property-map($map, $property-name: null) {
+  @each $item-key, $item-value in $map {
+    $new-property-name: if($property-name != null, #{$property-name}-#{$item-key}, $item-key);
+    @if type-of($item-value) == 'map' {
+      @include get-property-map($item-value, $new-property-name) using($key, $value) {
+        @content($key, $value);
+      }
+    } @else {
+      @content($new-property-name, $item-value);
+    }
+  }
+}
