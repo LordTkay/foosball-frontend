@@ -1,1 +1,8 @@
-@use "styles/reset";
+@layer reset {
+  @import "styles/reset";
+}
+
+@layer utility {
+  @import "styles/utility/index";
+}
+

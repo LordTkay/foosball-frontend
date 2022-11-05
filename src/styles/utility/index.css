@@ -1,0 +1,14 @@
+:root {
+  --color-primary-400: #74be0d;
+  --color-neutral-900: #151515;
+}
+
+.color-primary-400 {
+  color: var(--color-primary-400);
+}
+
+.color-neutral-900 {
+  color: var(--color-neutral-900);
+}
+
+/*# sourceMappingURL=index.css.map */
