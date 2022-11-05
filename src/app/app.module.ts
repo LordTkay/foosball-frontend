@@ -8,6 +8,7 @@ import { registerLocaleData } from "@angular/common";
 import localeDe from '@angular/common/locales/de';
 import { HeaderComponent } from './components/header/header.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
+import { PlayersComponent } from './players/players.component';
 
 registerLocaleData(localeDe)
 
@@ -15,7 +16,8 @@ registerLocaleData(localeDe)
   declarations: [
     AppComponent,
     HeaderComponent,
-    NavigationComponent
+    NavigationComponent,
+    PlayersComponent
   ],
   imports: [
     BrowserModule,
