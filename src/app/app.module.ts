@@ -9,15 +9,17 @@ import localeDe from '@angular/common/locales/de';
 import { HeaderComponent } from './components/header/header.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { PlayersComponent } from './players/players.component';
+import { ScoreboardComponent } from './scoreboard/scoreboard.component';
 
 registerLocaleData(localeDe)
 
 @NgModule({
   declarations: [
-    AppComponent,
-    HeaderComponent,
-    NavigationComponent,
-    PlayersComponent
+      AppComponent,
+      HeaderComponent,
+      NavigationComponent,
+      PlayersComponent,
+      ScoreboardComponent
   ],
   imports: [
     BrowserModule,

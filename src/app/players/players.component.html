@@ -1,20 +1,35 @@
 <table class="player-table">
-  <tr>
-    <th>Firstname</th>
-    <th>Lastname</th>
-    <th>E-Mail</th>
-  </tr>
-  <tr *ngFor="let player of playersService.playerChange$ | async; trackBy: playersService.playerTrackBy"
-      [class.red]="editedPlayers.has(player.id)" class="player-item">
-    <td (input)="onPlayerChange($event, player, 'firstName')" [contentEditable]="true">{{player.firstName}}</td>
-    <td (input)="onPlayerChange($event, player, 'lastName')" [contentEditable]="true">{{player.lastName}}</td>
-    <td (input)="onPlayerChange($event, player, 'email')" [contentEditable]="true">{{player.email}}</td>
-    <td>
-      <button (click)="onDeletePlayer(player)">Delete</button>
-    </td>
-  </tr>
+    <tr>
+        <th>Firstname</th>
+        <th>Lastname</th>
+        <th>E-Mail</th>
+    </tr>
+
+
+    <tr #playerRow
+        *ngFor="let player of players; trackBy: playersService.playerTrackBy" [class.red]="editedPlayers.has(player.id)" class="player-item">
+        <td (input)="onPlayerChange($event, player, 'firstName')" [contentEditable]="true"
+            id="firstName">{{player.firstName}}</td>
+        <td (input)="onPlayerChange($event, player, 'lastName')" [contentEditable]="true"
+            id="lastName">{{player.lastName}}</td>
+        <td (input)="onPlayerChange($event, player, 'email')" [contentEditable]="true" id="email">{{player.email}}</td>
+        <td>
+            <button (click)="onDeletePlayer(player)"
+                    *ngIf="!editedPlayers.has(player.id); else cancelButton">
+                <span class="nav-link-icon material-symbols-outlined">delete</span>
+            </button>
+            <ng-template #cancelButton>
+                <button (click)="onSavePlayer(player.id)">
+                    <span class="nav-link-icon material-symbols-outlined">save</span>
+                </button>
+                <button (click)="onCancelPlayerEdit(player.id, playerRow)">
+                    <span class="nav-link-icon material-symbols-outlined">cancel</span>
+                </button>
+            </ng-template>
+        </td>
+    </tr>
 </table>
 
 <pre>
-  {{editedPlayers | json}}
+  {{players | json}}
 </pre>
