@@ -9,10 +9,8 @@ import { Subscription } from "rxjs";
   styleUrls: ['./players.component.scss']
 })
 export class PlayersComponent implements OnInit {
-
-  // editedPlayers: { [id: number]: Players } = [];
   editedPlayers = new Map<number, Player>();
-  //      ^?
+
   private subscriptions = new Subscription();
 
   constructor(public playersService: PlayersService) {
@@ -27,7 +25,7 @@ export class PlayersComponent implements OnInit {
 
   onPlayerChange<T extends Player>(event: Event,
                                    player: T,
-                                   attribute: { [K in keyof Required<T>]: T[K] extends string ? K : never }[keyof T]) {
+                                   attribute: keyof T) {
     const target = event.target as HTMLTableCellElement;
     this.editedPlayers.set(player.id, {
       ...player,
@@ -42,4 +40,7 @@ export class PlayersComponent implements OnInit {
   //     // this.players = players;
   //   });
   // }
+  onDeletePlayer(player: Player) {
+
+  }
 }

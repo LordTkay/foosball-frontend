@@ -10,7 +10,7 @@
     <td (input)="onPlayerChange($event, player, 'lastName')" [contentEditable]="true">{{player.lastName}}</td>
     <td (input)="onPlayerChange($event, player, 'email')" [contentEditable]="true">{{player.email}}</td>
     <td>
-      <button>Delete</button>
+      <button (click)="onDeletePlayer(player)">Delete</button>
     </td>
   </tr>
 </table>
