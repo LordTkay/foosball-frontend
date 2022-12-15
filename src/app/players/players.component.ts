@@ -38,6 +38,7 @@ export class PlayersComponent implements OnInit, OnDestroy {
     }
 
     onDeletePlayer(player: Player) {
+        this.playersService.deletePlayer(player.id);
     }
 
     /**
