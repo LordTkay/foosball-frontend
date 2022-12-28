@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { PlayersService } from "./players.service";
 
 @Component({
     selector: 'app-players',
@@ -7,10 +8,15 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 })
 export class PlayersComponent implements OnInit, OnDestroy {
 
-    ngOnDestroy(): void {
+
+    constructor(protected playersService: PlayersService) {
     }
 
     ngOnInit(): void {
     }
+
+    ngOnDestroy(): void {
+    }
+
 
 }

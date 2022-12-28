@@ -1,16 +1,5 @@
-
-.player {
-
-  &-table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-
-  &-table, &-item {
-    border: 1px solid black;
-  }
-}
-
-.red {
-  color: Red;
+.players-list {
+  display: grid;
+  grid-template-columns: min-content 1fr 1fr 1fr 3rem 3rem;
+  gap: var(--spacing-1) var(--spacing-2);
 }

@@ -1,0 +1,39 @@
+<div>{{_player.id}}</div>
+<div (input)="onInput($event, 'firstName')" [class.edited]="editedPlayer?.firstName != null"
+     appEditable
+     attributeName="firstName">
+    {{_player.firstName}}
+</div>
+<div (input)="onInput($event, 'lastName')" [class.edited]="editedPlayer?.lastName != null"
+     appEditable
+     attributeName="lastName">
+    {{_player.lastName}}
+</div>
+<div (input)="onInput($event, 'email')" [class.edited]="editedPlayer?.email != null"
+     appEditable
+     attributeName="email">
+    {{_player.email}}
+</div>
+
+<!-- Buttons -->
+<ng-container *ngIf="editedPlayer == null; else buttonsEdit">
+    <div></div>
+    <button (click)="onDelete()"
+            class="clr-bg-primary-400">
+        <span class="nav-link-icon material-symbols-outlined">delete</span>
+    </button>
+</ng-container>
+
+<ng-template #buttonsEdit>
+    <button (click)="onSaveEdit()"
+            class="clr-bg-primary-400">
+        <span class="nav-link-icon material-symbols-outlined">save</span>
+    </button>
+
+    <button (click)="onCancelEdit()"
+            class="clr-bg-primary-400">
+        <span class="nav-link-icon material-symbols-outlined">cancel</span>
+    </button>
+</ng-template>
+
+

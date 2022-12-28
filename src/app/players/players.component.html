@@ -1,0 +1,6 @@
+<div class="players-list">
+    <app-player
+            *ngFor="let player of (playersService.playersChange$ | async)"
+            [player]="player">
+    </app-player>
+</div>
