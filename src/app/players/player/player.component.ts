@@ -1,26 +1,31 @@
-import { Component, Input, QueryList, ViewChildren } from '@angular/core';
+import { Component, Input, OnDestroy, QueryList, ViewChildren } from '@angular/core';
 import { Player } from "./player.model";
 import { EditableDirective } from "../../directives/editable.directive";
 import { PlayersService } from "../players.service";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { Subscription } from "rxjs";
+import { ObjectToFormGroup } from "../../types/form-group.type";
 
 @Component({
     selector: 'app-player[player]',
     templateUrl: './player.component.html',
     styleUrls: ['./player.component.scss']
 })
-export class PlayerComponent {
+export class PlayerComponent implements OnDestroy {
 
     /**
      * A list of all field that can be edited. It's used to reset the text to the previous value, if the editing is
      * canceled.
      */
     @ViewChildren(EditableDirective) editableFields!: QueryList<EditableDirective<HTMLDivElement, keyof Player>>
-    protected editedPlayer?: Partial<Player>;
 
     constructor(private playersService: PlayersService) {
     }
 
-    protected _player!: Player;
+    modifiedAttributes = new Set<keyof Player>();
+    playerForm!: FormGroup<ObjectToFormGroup<Omit<Player, 'id'>>>
+    private _player!: Player;
+    private formSubscription?: Subscription;
 
     get player(): Player {
         return this._player;
@@ -33,41 +38,47 @@ export class PlayerComponent {
     @Input()
     set player(player: Player) {
         this._player = player;
+        this.formSubscription?.unsubscribe();
+        this.playerForm = this.getPlayerFormGroup(player);
+        this.formSubscription = this.onPlayerFormChange();
     }
 
-    /**
-     * Every change made in one of the editable field will be saved into an object, which will be used to change the
-     * player, if the user decides to save.
-     * @param event
-     * @param attribute
-     */
-    onInput(event: Event, attribute: Exclude<keyof Player, 'id'>) {
-        const target = event.target as HTMLDivElement
-        this.editedPlayer ??= {}
-
-        this.editedPlayer[attribute] = target.innerText;
+    ngOnDestroy() {
+        this.formSubscription?.unsubscribe();
     }
 
     /**
      * Cancel the editing and resets to the previous values.
      */
     onCancelEdit() {
-        this.editableFields.forEach(editableField => {
-            const value = this._player[editableField.attributeName];
-            editableField.elementRef.nativeElement.innerText = value?.toString() ?? '';
-        })
-        this.editedPlayer = undefined;
+        this.playerForm.reset()
     }
 
     /**
      * Saves the changes to the database.
      */
     onSaveEdit() {
+        this.playerForm.markAsTouched();
+        if (this.playerForm.invalid) return;
+
         this.playersService.editPlayer(this._player.id, {
             ...this._player,
-            ...this.editedPlayer
+            ...this.playerForm.value
         })
-        this.editedPlayer = undefined;
+    }
+
+    private getPlayerFormGroup(player: Player): typeof this.playerForm {
+        return new FormGroup({
+            firstName: new FormControl<string>(player.firstName, {
+                validators: [Validators.required],
+                nonNullable: true
+            }),
+            lastName: new FormControl<string>(player.lastName, {
+                validators: [Validators.required],
+                nonNullable: true
+            }),
+            email: new FormControl<string | undefined>(player.email, { nonNullable: true })
+        });
     }
 
     /**
@@ -75,5 +86,17 @@ export class PlayerComponent {
      */
     onDelete() {
         this.playersService.deletePlayer(this._player.id)
+    }
+
+    private onPlayerFormChange() {
+        return this.playerForm.valueChanges.subscribe(modifiedPlayer => {
+            this.modifiedAttributes.clear();
+            Object.entries(modifiedPlayer).forEach(([key, value]) => {
+                const playerAttribute = key as keyof Player
+                if (value !== this._player[playerAttribute]) {
+                    this.modifiedAttributes.add(playerAttribute)
+                }
+            })
+        });
     }
 }

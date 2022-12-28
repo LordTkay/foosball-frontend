@@ -1,22 +1,15 @@
-<div>{{_player.id}}</div>
-<div (input)="onInput($event, 'firstName')" [class.edited]="editedPlayer?.firstName != null"
-     appEditable
-     attributeName="firstName">
-    {{_player.firstName}}
-</div>
-<div (input)="onInput($event, 'lastName')" [class.edited]="editedPlayer?.lastName != null"
-     appEditable
-     attributeName="lastName">
-    {{_player.lastName}}
-</div>
-<div (input)="onInput($event, 'email')" [class.edited]="editedPlayer?.email != null"
-     appEditable
-     attributeName="email">
-    {{_player.email}}
-</div>
+<form [formGroup]="playerForm" class="form">
+    <div>{{player.id}}</div>
+    <input [class.edited]="modifiedAttributes.has('firstName')" formControlName="firstName"
+           type="text">
+    <input [class.edited]="modifiedAttributes.has('lastName')" formControlName="lastName"
+           type="text">
+    <input [class.edited]="modifiedAttributes.has('email')" formControlName="email"
+           type="text">
+</form>
 
 <!-- Buttons -->
-<ng-container *ngIf="editedPlayer == null; else buttonsEdit">
+<ng-container *ngIf="modifiedAttributes.size === 0; else buttonsEdit">
     <div></div>
     <button (click)="onDelete()"
             class="clr-bg-primary-400">
