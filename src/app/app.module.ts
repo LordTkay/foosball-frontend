@@ -11,6 +11,7 @@ import { NavigationComponent } from './components/navigation/navigation.componen
 import { PlayersComponent } from './players/players.component';
 import { ScoreboardComponent } from './scoreboard/scoreboard.component';
 import { PlayerComponent } from './players/player/player.component';
+import { EditableDirective } from './directives/editable.directive';
 
 registerLocaleData(localeDe)
 
@@ -19,9 +20,11 @@ registerLocaleData(localeDe)
       AppComponent,
       HeaderComponent,
       NavigationComponent,
-      PlayersComponent,
       ScoreboardComponent,
-      PlayerComponent
+
+      PlayersComponent,
+      PlayerComponent,
+      EditableDirective,
   ],
   imports: [
     BrowserModule,
