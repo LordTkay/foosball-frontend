@@ -10,6 +10,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { PlayersComponent } from './players/players.component';
 import { ScoreboardComponent } from './scoreboard/scoreboard.component';
+import { PlayerComponent } from './players/player/player.component';
 
 registerLocaleData(localeDe)
 
@@ -19,7 +20,8 @@ registerLocaleData(localeDe)
       HeaderComponent,
       NavigationComponent,
       PlayersComponent,
-      ScoreboardComponent
+      ScoreboardComponent,
+      PlayerComponent
   ],
   imports: [
     BrowserModule,
