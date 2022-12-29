@@ -1,5 +1,5 @@
 <form [formGroup]="playerForm" class="form">
-    <div>{{player.id}}</div>
+    <div>{{!newPlayer ? player.id : '+'}}</div>
     <input [class.edited]="modifiedAttributes.has('firstName')" formControlName="firstName"
            type="text">
     <input [class.edited]="modifiedAttributes.has('lastName')" formControlName="lastName"
@@ -9,7 +9,7 @@
 </form>
 
 <!-- Buttons -->
-<ng-container *ngIf="modifiedAttributes.size === 0; else buttonsEdit">
+<ng-container *ngIf="modifiedAttributes.size === 0 && !newPlayer; else buttonsEdit">
     <div></div>
     <button (click)="onDelete()"
             class="clr-bg-primary-400">

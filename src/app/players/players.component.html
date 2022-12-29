@@ -3,6 +3,7 @@
             *ngFor="let player of (playersService.playersChange$ | async)"
             [player]="player">
     </app-player>
+    <ng-container #playersList></ng-container>
 </div>
 <button (click)="onAddPlayer()">
     <span class="nav-link-icon material-symbols-outlined">add</span>

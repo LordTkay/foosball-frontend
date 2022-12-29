@@ -1,25 +1,34 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, ViewChild, ViewContainerRef } from '@angular/core';
 import { PlayersService } from "./players.service";
+import { PlayerComponent } from "./player/player.component";
+import { Subscription } from "rxjs";
 
 @Component({
     selector: 'app-players',
     templateUrl: './players.component.html',
     styleUrls: ['./players.component.scss']
 })
-export class PlayersComponent implements OnInit, OnDestroy {
+export class PlayersComponent implements OnDestroy {
 
+    @ViewChild('playersList', { read: ViewContainerRef }) playersList!: ViewContainerRef;
+
+    private subscriptions = new Subscription();
 
     constructor(protected playersService: PlayersService) {
     }
 
-    ngOnInit(): void {
+    ngOnDestroy() {
+        this.subscriptions.unsubscribe();
     }
 
-    ngOnDestroy(): void {
-    }
-
-
+    /**
+     * Appends a player components to the list. It listens to the destroy event, to destroy itself if needed.
+     */
     onAddPlayer() {
-
+        const newPlayerComponentRef = this.playersList.createComponent(PlayerComponent)
+        const destroySubscription = newPlayerComponentRef.instance.destroy.subscribe(() => {
+            newPlayerComponentRef.destroy();
+        });
+        this.subscriptions.add(destroySubscription);
     }
 }

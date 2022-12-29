@@ -36,8 +36,11 @@ export class PlayersService {
         this.updatePlayers();
     }
 
-    public addPlayer(player: Player) {
-        this.players.set(player.id, player);
+    public addPlayer(player: Omit<Player, 'id'>) {
+        this.players.set(this.players.size, {
+            ...player,
+            id: this.players.size,
+        });
         this.updatePlayers();
     }
 
