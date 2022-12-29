@@ -95,6 +95,10 @@ export class PlayerComponent implements OnInit, OnDestroy {
     onDelete() {
         if (!this._player || this.newPlayer) return;
 
+        // ToDo Add a proper modal
+        const answer = confirm('Are you sure you wanna delete?')
+        if (!answer) return;
+
         this.playersService.deletePlayer(this._player.id)
     }
 
