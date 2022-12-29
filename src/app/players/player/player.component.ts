@@ -18,12 +18,12 @@ export class PlayerComponent implements OnInit, OnDestroy {
     protected modifiedAttributes = new Set<keyof Player>();
     protected playerForm!: FormGroup<ObjectToFormGroup<Omit<Player, 'id'>>>
     protected newPlayer: boolean = false;
-    private _player?: Player;
-
     private formSubscription?: Subscription;
 
     constructor(private playersService: PlayersService) {
     }
+
+    private _player?: Player;
 
     get player(): Player {
         return this._player!
@@ -60,6 +60,8 @@ export class PlayerComponent implements OnInit, OnDestroy {
      * Cancel the editing and resets to the previous values.
      */
     onCancelEdit() {
+        this.modifiedAttributes.clear();
+
         if (!this.newPlayer) {
             this.playerForm.reset()
         } else {
@@ -96,6 +98,18 @@ export class PlayerComponent implements OnInit, OnDestroy {
         this.playersService.deletePlayer(this._player.id)
     }
 
+    onKeyDown(event: KeyboardEvent) {
+        const hasChanged = (this.modifiedAttributes.size !== 0 || this.newPlayer);
+        if (event.key === 'Escape' && hasChanged) {
+            // Cancel the current edit, when pressing ESC
+            this.onCancelEdit()
+        } else if (event.key === 'Enter' && event.ctrlKey && hasChanged) {
+            // Saves the current edit, when pressing CTRL+Enter
+            this.onSaveEdit();
+        }
+
+    }
+
     /**
      * Created a new player form, with the given player values. This allows using the reset function of form-groups, to
      * simply resetting the controls
@@ -121,7 +135,9 @@ export class PlayerComponent implements OnInit, OnDestroy {
             this.modifiedAttributes.clear();
             Object.entries(modifiedPlayer).forEach(([key, value]) => {
                 const playerAttribute = key as keyof Player
-                if (value !== this._player![playerAttribute]) {
+                const playerValue = this._player![playerAttribute];
+
+                if (value !== playerValue && (!!value || playerValue != null)) {
                     this.modifiedAttributes.add(playerAttribute)
                 }
             })

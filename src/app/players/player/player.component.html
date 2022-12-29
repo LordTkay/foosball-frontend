@@ -1,4 +1,6 @@
-<form [formGroup]="playerForm" class="form">
+<form (keydown)="onKeyDown($event)"
+      [formGroup]="playerForm"
+      class="form">
     <div>{{!newPlayer ? player.id : '+'}}</div>
     <input [class.edited]="modifiedAttributes.has('firstName')" formControlName="firstName"
            type="text">
