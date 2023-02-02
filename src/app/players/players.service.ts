@@ -15,7 +15,7 @@ export class PlayersService {
     private players: Map<Player['id'], Player> = new Map([]);
 
     constructor() {
-        this.setPlayers();
+        this.fetchPlayers();
     }
 
     public editPlayer(id: Player['id'], player: Player) {
@@ -58,14 +58,14 @@ export class PlayersService {
             .pipe(
                 take(1),
                 delay(2000),
-                tap(player => {
-                    this.players.set(player.id, player);
+                tap(addedPlayer => {
+                    this.players.set(addedPlayer.id, addedPlayer);
                     this.updatePlayers();
                 })
             )
     }
 
-    private setPlayers() {
+    private fetchPlayers() {
         this.playersStub.forEach(player => this.players.set(player.id, player))
         this.updatePlayers();
     }
