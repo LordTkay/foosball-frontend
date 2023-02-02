@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Player, Players } from "./player/player.model";
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject, delay, of, take, tap } from "rxjs";
 
 @Injectable({
     providedIn: 'root'
@@ -19,8 +19,16 @@ export class PlayersService {
     }
 
     public editPlayer(id: Player['id'], player: Player) {
-        this.players.set(id, player)
-        this.updatePlayers();
+        return of(player)
+            .pipe(
+                take(1),
+                delay(2000),
+                tap(updatedPlayer => {
+                    this.players.set(updatedPlayer.id, updatedPlayer)
+                    this.updatePlayers();
+                })
+            )
+
     }
 
     public playerTrackBy(index: number, player: Player) {
@@ -32,18 +40,29 @@ export class PlayersService {
     }
 
     public deletePlayer(id: Player['id']) {
-        this.players.delete(id);
-        this.updatePlayers();
+        return of(id)
+            .pipe(
+                take(1),
+                delay(2000),
+                tap(deletedId => {
+                    this.players.delete(deletedId);
+                    this.updatePlayers();
+                })
+            )
     }
 
     public addPlayer(player: Omit<Player, 'id'>) {
         const id = (Array.from(this.players.keys()).sort().at(-1) ?? 0) + 1
 
-        this.players.set(id, {
-            ...player,
-            id,
-        });
-        this.updatePlayers();
+        return of({ ...player, id })
+            .pipe(
+                take(1),
+                delay(2000),
+                tap(player => {
+                    this.players.set(player.id, player);
+                    this.updatePlayers();
+                })
+            )
     }
 
     private setPlayers() {
