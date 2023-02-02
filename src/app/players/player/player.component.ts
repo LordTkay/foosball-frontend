@@ -111,7 +111,6 @@ export class PlayerComponent implements OnInit, OnDestroy {
         this.setLoading(true)
 
         this.playersService.deletePlayer(this._player.id).subscribe({
-            next: () => this.setLoading(false),
             error: () => this.setLoading(false)
         })
     }
