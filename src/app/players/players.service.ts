@@ -37,9 +37,11 @@ export class PlayersService {
     }
 
     public addPlayer(player: Omit<Player, 'id'>) {
-        this.players.set(this.players.size, {
+        const id = (Array.from(this.players.keys()).sort().at(-1) ?? 0) + 1
+
+        this.players.set(id, {
             ...player,
-            id: this.players.size,
+            id,
         });
         this.updatePlayers();
     }
