@@ -1,7 +1,7 @@
 import { Component, OnDestroy, ViewChild, ViewContainerRef } from '@angular/core';
 import { PlayersService } from "./players.service";
 import { PlayerComponent } from "./player/player.component";
-import { Subscription } from "rxjs";
+import { Subscription, take } from "rxjs";
 
 @Component({
     selector: 'app-players',
@@ -26,9 +26,12 @@ export class PlayersComponent implements OnDestroy {
      */
     onAddPlayer() {
         const newPlayerComponentRef = this.playersList.createComponent(PlayerComponent)
-        const destroySubscription = newPlayerComponentRef.instance.destroy.subscribe(() => {
-            newPlayerComponentRef.destroy();
-        });
+        const destroySubscription = newPlayerComponentRef.instance
+            .destroy
+            .pipe(take(1))
+            .subscribe(() => {
+                newPlayerComponentRef.destroy();
+            });
         this.subscriptions.add(destroySubscription);
     }
 }
