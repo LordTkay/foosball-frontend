@@ -5,8 +5,6 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Subscription } from "rxjs";
 import { ObjectToFormGroup } from "../../types/form-group.type";
 
-// ToDo Adding spinner and waiting for the save on the backend to resolve
-
 @Component({
     selector: 'app-player',
     templateUrl: './player.component.html',
@@ -15,6 +13,7 @@ import { ObjectToFormGroup } from "../../types/form-group.type";
 export class PlayerComponent implements OnInit, OnDestroy {
     @Output() destroy = new EventEmitter<void>();
 
+    protected isLoading: boolean = false;
     protected modifiedAttributes = new Set<keyof Player>();
     protected playerForm!: FormGroup<ObjectToFormGroup<Omit<Player, 'id'>>>
     protected newPlayer: boolean = false;
@@ -74,7 +73,9 @@ export class PlayerComponent implements OnInit, OnDestroy {
      */
     onSaveEdit() {
         this.playerForm.markAllAsTouched();
-        if (this.playerForm.invalid || !this._player) return;
+        if (this.playerForm.disabled || this.playerForm.invalid || !this._player) return;
+
+        this.setLoading(true)
 
         const updatedPlayer = {
             ...this._player,
@@ -82,10 +83,18 @@ export class PlayerComponent implements OnInit, OnDestroy {
         };
 
         if (!this.newPlayer) {
-            this.playersService.editPlayer(this._player.id, updatedPlayer)
+            this.playersService.editPlayer(this._player.id, updatedPlayer).subscribe({
+                next: () => this.setLoading(false),
+                error: () => this.setLoading(false)
+            })
         } else {
-            this.playersService.addPlayer(updatedPlayer)
-            this.destroy.emit()
+            this.playersService.addPlayer(updatedPlayer).subscribe({
+                next: () => {
+                    this.setLoading(false);
+                    this.destroy.emit()
+                },
+                error: () => this.setLoading(false)
+            })
         }
     }
 
@@ -99,7 +108,12 @@ export class PlayerComponent implements OnInit, OnDestroy {
         const answer = confirm('Are you sure you wanna delete?')
         if (!answer) return;
 
-        this.playersService.deletePlayer(this._player.id)
+        this.setLoading(true)
+
+        this.playersService.deletePlayer(this._player.id).subscribe({
+            next: () => this.setLoading(false),
+            error: () => this.setLoading(false)
+        })
     }
 
     onKeyDown(event: KeyboardEvent) {
@@ -146,5 +160,14 @@ export class PlayerComponent implements OnInit, OnDestroy {
                 }
             })
         });
+    }
+
+    private setLoading(isLoading: boolean) {
+        this.isLoading = isLoading;
+        if (this.isLoading) {
+            this.playerForm.disable()
+        } else {
+            this.playerForm.enable()
+        }
     }
 }

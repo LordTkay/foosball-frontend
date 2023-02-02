@@ -10,25 +10,29 @@
            type="text">
 </form>
 
-<!-- Buttons -->
-<ng-container *ngIf="modifiedAttributes.size === 0 && !newPlayer; else buttonsEdit">
-    <div></div>
-    <button (click)="onDelete()"
-            class="clr-bg-primary-400">
-        <span class="nav-link-icon material-symbols-outlined">delete</span>
-    </button>
+
+<ng-container *ngIf="!isLoading; else loadingElement">
+    <!-- Buttons -->
+    <ng-container *ngIf="modifiedAttributes.size === 0 && !newPlayer; else buttonsEdit">
+        <button (click)="onDelete()"
+                class="clr-bg-primary-400 grid-span-2">
+            <span class="nav-link-icon material-symbols-outlined">delete</span>
+        </button>
+    </ng-container>
+
+    <ng-template #buttonsEdit>
+        <button (click)="onSaveEdit()"
+                class="clr-bg-primary-400">
+            <span class="nav-link-icon material-symbols-outlined">save</span>
+        </button>
+
+        <button (click)="onCancelEdit()"
+                class="clr-bg-primary-400">
+            <span class="nav-link-icon material-symbols-outlined">cancel</span>
+        </button>
+    </ng-template>
 </ng-container>
 
-<ng-template #buttonsEdit>
-    <button (click)="onSaveEdit()"
-            class="clr-bg-primary-400">
-        <span class="nav-link-icon material-symbols-outlined">save</span>
-    </button>
-
-    <button (click)="onCancelEdit()"
-            class="clr-bg-primary-400">
-        <span class="nav-link-icon material-symbols-outlined">cancel</span>
-    </button>
+<ng-template #loadingElement>
+    <div class="grid-span-2">loading...</div>
 </ng-template>
-
-

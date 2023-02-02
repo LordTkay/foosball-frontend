@@ -11,3 +11,7 @@ input.ng-invalid.ng-touched {
   border-color: red;
   outline-color: red;
 }
+
+.grid-span-2 {
+  grid-column: span 2;
+}
