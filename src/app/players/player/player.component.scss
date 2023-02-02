@@ -1,15 +1,31 @@
 :host,
-.form {
+.player-form {
   display: contents;
 }
 
-.edited {
-  color: #fa4c4c;
-}
+.player {
 
-input.ng-invalid.ng-touched {
-  border-color: red;
-  outline-color: red;
+  &-id {
+    min-width: 1.5em;
+    text-align: center;
+  }
+
+  &-input {
+    border: 1px solid black;
+    height: 100%;
+
+    &:focus {
+      outline: none;
+    }
+
+    &.edited {
+      color: #e58933;
+    }
+
+    &.ng-invalid.ng-touched {
+      border-color: red;
+    }
+  }
 }
 
 .grid-span-2 {
