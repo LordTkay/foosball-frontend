@@ -144,7 +144,10 @@ export class PlayerComponent implements OnInit, OnDestroy {
                 validators: [Validators.required],
                 nonNullable: true
             }),
-            email: new FormControl<string | undefined>(player.email, { nonNullable: true })
+            email: new FormControl<string | undefined>(player.email, {
+                validators: [Validators.pattern(".+@.+\\..+")],
+                nonNullable: true
+            })
         });
     }
 
