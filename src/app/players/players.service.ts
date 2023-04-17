@@ -6,12 +6,13 @@ import { BehaviorSubject, delay, of, take, tap } from "rxjs";
     providedIn: 'root'
 })
 export class PlayersService {
-    playersChange$ = new BehaviorSubject<Player[]>([]);
     private playersStub: Players = [
         { id: 0, firstName: 'Tobias', lastName: 'Wagner', email: 'Tobias.Wagner@MetallRente-Services.de' },
         { id: 1, firstName: 'Gareth', lastName: 'Schmutz' },
         { id: 2, firstName: 'Sven', lastName: 'Hanl' }
     ];
+    private playersSubject = new BehaviorSubject<Players>([]);
+    players$ = this.playersSubject.asObservable()
     private players: Map<Player['id'], Player> = new Map([]);
 
     constructor() {
@@ -71,6 +72,6 @@ export class PlayersService {
     }
 
     private updatePlayers() {
-        this.playersChange$.next([...this.players.values()]);
+        this.playersSubject.next([...this.players.values()]);
     }
 }
