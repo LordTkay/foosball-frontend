@@ -26,7 +26,7 @@ import { Player } from "./player/player.model";
 export class PlayersComponent {
 
     players$ = this.playersService.players$
-        .pipe(map((players) => deepClone(players)!))
+        .pipe(map((players) => deepClone(players)))
 
     playerTrackBy = (index: number, player: Player) => this.playersService.playerTrackBy(index, player)
 

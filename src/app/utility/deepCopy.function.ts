@@ -1,3 +1,3 @@
-export function deepClone<T extends object | undefined | null>(object: T) {
-    return object ? JSON.parse(JSON.stringify(object)) as T : null
+export function deepClone<T extends object>(object: T) {
+    return JSON.parse(JSON.stringify(object)) as T
 }
