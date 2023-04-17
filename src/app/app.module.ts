@@ -12,6 +12,7 @@ import { PlayersComponent } from './players/players.component';
 import { ScoreboardComponent } from './scoreboard/scoreboard.component';
 import { PlayerComponent } from './players/player/player.component';
 import { FormsModule } from "@angular/forms";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 registerLocaleData(localeDe)
 
@@ -29,6 +30,7 @@ registerLocaleData(localeDe)
         BrowserModule,
         HttpClientModule,
         FormsModule,
+        BrowserAnimationsModule,
 
         AppRoutingModule
     ],

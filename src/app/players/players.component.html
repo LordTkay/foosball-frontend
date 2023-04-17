@@ -1,4 +1,5 @@
 <div class="players">
-    <app-player *ngFor="let player of players$ | async"
+    <app-player *ngFor="let player of players$ | async; trackBy: playerTrackBy"
+                @appearanceAnimation
                 [player]="player"/>
 </div>

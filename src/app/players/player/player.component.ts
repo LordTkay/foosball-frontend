@@ -6,8 +6,13 @@ import { PlayersService } from "../players.service";
     selector: 'app-player[player]',
     templateUrl: './player.component.html',
     styleUrls: ['./player.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PlayerComponent {
+
     @Input() player!: Player
+
+    constructor(private playersService: PlayersService) {
+    }
+
 }
