@@ -11,7 +11,7 @@ import { NavigationComponent } from './components/navigation/navigation.componen
 import { PlayersComponent } from './players/players.component';
 import { ScoreboardComponent } from './scoreboard/scoreboard.component';
 import { PlayerComponent } from './players/player/player.component';
-import { ReactiveFormsModule } from "@angular/forms";
+import { FormsModule } from "@angular/forms";
 
 registerLocaleData(localeDe)
 
@@ -28,7 +28,7 @@ registerLocaleData(localeDe)
     imports: [
         BrowserModule,
         HttpClientModule,
-        ReactiveFormsModule,
+        FormsModule,
 
         AppRoutingModule
     ],
