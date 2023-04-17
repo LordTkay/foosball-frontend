@@ -1,1 +1,4 @@
-players
+<div class="players">
+    <app-player *ngFor="let player of players$ | async"
+                [player]="player"/>
+</div>
