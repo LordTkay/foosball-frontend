@@ -32,7 +32,7 @@ export class PlayersService {
 
     }
 
-    public playerTrackBy(index: number, player: Player) {
+    public playerTrackBy(_index: number, player: Player) {
         return player.id;
     }
 
@@ -72,6 +72,7 @@ export class PlayersService {
     }
 
     private updatePlayers() {
+        console.log([...this.players.values()])
         this.playersSubject.next([...this.players.values()]);
     }
 }
