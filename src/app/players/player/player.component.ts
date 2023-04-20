@@ -1,20 +1,21 @@
-import { ChangeDetectionStrategy, Component, Input, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Player } from "./player.model";
 import { PlayersService } from "../players.service";
 import { deepClone } from "../../utility/deepCopy.function";
 import { NgForm } from "@angular/forms";
 
 @Component({
-    selector: 'app-player[player]',
+    selector: 'app-player[player], app-new-player',
     templateUrl: './player.component.html',
     styleUrls: ['./player.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PlayerComponent {
+export class PlayerComponent implements OnInit {
 
     @ViewChild(NgForm) playerForm!: NgForm;
     loading: boolean = false
     playerState!: Player
+    newPlayer = false
 
     constructor(private playersService: PlayersService) {
     }
@@ -28,10 +29,34 @@ export class PlayerComponent {
         this.resetForm();
     }
 
+    ngOnInit() {
+        if (!this._player) {
+            this.newPlayer = true;
+            this.player = {
+                id: -1,
+                firstName: "",
+                lastName: "",
+                email: ""
+            };
+        }
+    }
+
     onSave() {
+        this.playerForm.control.markAllAsTouched();
+
+        if (!this.playerForm.valid) return
         this.loading = true;
-        this.playersService.editPlayer(this._player.id, this._player)
-            .subscribe(() => this.loading = false)
+        if (this.newPlayer) {
+            this.playersService.addPlayer(this._player)
+                .subscribe(() => {
+                    console.log('Added')
+                    this.loading = false;
+                    this.resetForm();
+                });
+        } else {
+            this.playersService.editPlayer(this._player.id, this._player)
+                .subscribe(() => this.loading = false);
+        }
     }
 
     resetForm() {

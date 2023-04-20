@@ -1,4 +1,4 @@
-<form #form="ngForm" (ngSubmit)="onSave()">
+<form #form="ngForm" (ngSubmit)="onSave()" [class.new-player]="newPlayer">
     <input [(ngModel)]="_player.firstName"
            name="firstName"
            required
@@ -16,7 +16,7 @@
 
     <div *ngIf="!loading; else loadingElement" class="buttons">
         <ng-container *ngIf="form.dirty">
-            <button [disabled]="!form.valid"
+            <button [class.disabled]="!form.valid"
                     class="btn-symbol"
                     type="submit">
                 <span class="material-symbols-outlined">save</span>
@@ -27,7 +27,7 @@
                 <span class="material-symbols-outlined">cancel</span>
             </button>
         </ng-container>
-        <button (click)="onDelete()"
+        <button (click)="onDelete()" *ngIf="!newPlayer"
                 class="btn-symbol"
                 type="button">
             <span class="material-symbols-outlined">delete</span>
