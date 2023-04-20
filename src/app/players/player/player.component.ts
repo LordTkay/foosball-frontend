@@ -35,11 +35,7 @@ export class PlayerComponent {
             .subscribe(() => this.loading = false)
     }
 
-    onCancel() {
-        this.resetForm();
-    }
-
-    private resetForm() {
+    resetForm() {
         if (!this.playerForm) return
         this.playerForm.resetForm(deepClone(this.playerState))
     }

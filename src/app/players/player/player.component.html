@@ -14,17 +14,17 @@
            email
            type="text">
 
-    <span *ngIf="!loading; else loadingElement">
+    <div *ngIf="!loading; else loadingElement" class="buttons">
         <button [disabled]="form.invalid"
                 type="submit">
-            Save
+            <span class="material-symbols-outlined">save</span>
         </button>
-        <button (click)="onCancel()"
+        <button (click)="resetForm()"
                 type="button">
-            Cancel
+            <span class="material-symbols-outlined">cancel</span>
         </button>
-    </span>
+    </div>
     <ng-template #loadingElement>
-        <span>loading...</span>
+        <div>loading...</div>
     </ng-template>
 </form>

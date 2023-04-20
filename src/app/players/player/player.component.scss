@@ -1,3 +1,43 @@
 :host {
   display: block;
+  margin-bottom: var(--spacing-2);
+}
+
+form {
+  display: grid;
+  grid-template-columns: 1fr 1fr 2fr auto;
+
+  .ng-dirty {
+    &.ng-valid {
+      color: green;
+      border-color: green;
+    }
+
+    &.ng-invalid {
+      color: red;
+      border-color: red;
+    }
+  }
+}
+
+form,
+.buttons {
+  gap: var(--spacing-1);
+}
+
+.buttons {
+  display: flex;
+
+  > * {
+    flex: 1;
+  }
+}
+
+input {
+  border: 1px solid black;
+  width: 100%;
+
+  &:focus {
+    outline: none;
+  }
 }
