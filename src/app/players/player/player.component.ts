@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, ViewChild } from '@angular/core';
 import { Player } from "./player.model";
 import { PlayersService } from "../players.service";
 import { deepClone } from "../../utility/deepCopy.function";
+import { NgForm } from "@angular/forms";
 
 @Component({
     selector: 'app-player[player]',
@@ -11,6 +12,10 @@ import { deepClone } from "../../utility/deepCopy.function";
 })
 export class PlayerComponent {
 
+    @ViewChild(NgForm) playerForm!: NgForm;
+    loading: boolean = false
+    playerState!: Player
+
     constructor(private playersService: PlayersService) {
     }
 
@@ -18,7 +23,24 @@ export class PlayerComponent {
 
     @Input()
     set player(player: Player) {
-        this._player = deepClone(player);
+        this.playerState = deepClone(player)
+        this._player = deepClone(this.playerState);
+        this.resetForm();
     }
 
+    onSave() {
+        this.loading = true;
+
+        this.playersService.editPlayer(this._player.id, this._player)
+            .subscribe(() => this.loading = false)
+    }
+
+    onCancel() {
+        this.resetForm();
+    }
+
+    private resetForm() {
+        if (!this.playerForm) return
+        this.playerForm.resetForm(deepClone(this.playerState))
+    }
 }
