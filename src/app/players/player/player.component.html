@@ -1,12 +1,14 @@
 <form #form="ngForm" (ngSubmit)="onSave()">
     <input [(ngModel)]="_player.firstName"
-           [class.modified]="_player.firstName !== playerState.firstName"
            name="firstName"
            type="text">
 
     <input [(ngModel)]="_player.lastName"
-           [class.modified]="_player.lastName !== playerState.lastName"
            name="lastName"
+           type="text">
+
+    <input [(ngModel)]="_player.email"
+           name="email"
            type="text">
 
     <span *ngIf="!loading; else loadingElement">
