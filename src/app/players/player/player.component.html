@@ -1,14 +1,17 @@
 <form #form="ngForm" (ngSubmit)="onSave()">
     <input [(ngModel)]="_player.firstName"
            name="firstName"
+           required
            type="text">
 
     <input [(ngModel)]="_player.lastName"
            name="lastName"
+           required
            type="text">
 
     <input [(ngModel)]="_player.email"
            name="email"
+           email
            type="text">
 
     <span *ngIf="!loading; else loadingElement">
