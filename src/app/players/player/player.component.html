@@ -1,4 +1,25 @@
-<form>
-    <input [(ngModel)]="_player.firstName" name="firstName" type="text">
-    <input [(ngModel)]="_player.lastName" name="lastName" type="text">
+<form #form="ngForm" (ngSubmit)="onSave()">
+    <input [(ngModel)]="_player.firstName"
+           [class.modified]="_player.firstName !== playerState.firstName"
+           name="firstName"
+           type="text">
+
+    <input [(ngModel)]="_player.lastName"
+           [class.modified]="_player.lastName !== playerState.lastName"
+           name="lastName"
+           type="text">
+
+    <span *ngIf="!loading; else loadingElement">
+        <button [disabled]="form.invalid"
+                type="submit">
+            Save
+        </button>
+        <button (click)="onCancel()"
+                type="button">
+            Cancel
+        </button>
+    </span>
+    <ng-template #loadingElement>
+        <span>loading...</span>
+    </ng-template>
 </form>
