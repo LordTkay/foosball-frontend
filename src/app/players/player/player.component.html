@@ -1,16 +1,19 @@
 <form #form="ngForm" (ngSubmit)="onSave()" [class.new-player]="newPlayer">
     <input [(ngModel)]="_player.firstName"
            name="firstName"
+           placeholder="First name"
            required
            type="text">
 
     <input [(ngModel)]="_player.lastName"
            name="lastName"
+           placeholder="Last name"
            required
            type="text">
 
     <input [(ngModel)]="_player.email"
            name="email"
+           placeholder="E-Mail"
            email
            type="text">
 
