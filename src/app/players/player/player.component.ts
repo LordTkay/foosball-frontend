@@ -30,7 +30,6 @@ export class PlayerComponent {
 
     onSave() {
         this.loading = true;
-
         this.playersService.editPlayer(this._player.id, this._player)
             .subscribe(() => this.loading = false)
     }
@@ -38,5 +37,11 @@ export class PlayerComponent {
     resetForm() {
         if (!this.playerForm) return
         this.playerForm.resetForm(deepClone(this.playerState))
+    }
+
+    onDelete() {
+        this.loading = true;
+        this.playersService.deletePlayer(this._player.id)
+            .subscribe(() => this.loading = false);
     }
 }

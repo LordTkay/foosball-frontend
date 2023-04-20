@@ -5,17 +5,15 @@
 
 form {
   display: grid;
-  grid-template-columns: 1fr 1fr 2fr auto;
+  grid-template-columns: 1fr 1fr 2fr 8rem;
 
   .ng-dirty {
     &.ng-valid {
-      color: green;
-      border-color: green;
+      border-left-color: var(--color-success-400);
     }
 
     &.ng-invalid {
-      color: red;
-      border-color: red;
+      border-left-color: var(--color-error-400);
     }
   }
 }
@@ -33,11 +31,35 @@ form,
   }
 }
 
+.btn-symbol {
+  all: unset;
+  cursor: pointer;
+  text-align: center;
+  display: inline-grid;
+  place-content: center;
+  height: 100%;
+
+  > span {
+    font-size: 2rem;
+
+    :disabled > & {
+      color: var(--color-error-400);
+    }
+  }
+}
+
 input {
   border: 1px solid black;
+  border-left-width: 4px;
   width: 100%;
+  padding: var(--spacing-1) var(--spacing-2);
 
   &:focus {
     outline: none;
   }
+}
+
+.loading {
+  display: inline-grid;
+  place-content: center;
 }

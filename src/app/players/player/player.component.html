@@ -15,16 +15,25 @@
            type="text">
 
     <div *ngIf="!loading; else loadingElement" class="buttons">
-        <button [disabled]="form.invalid"
-                type="submit">
-            <span class="material-symbols-outlined">save</span>
-        </button>
-        <button (click)="resetForm()"
+        <ng-container *ngIf="form.dirty">
+            <button [disabled]="!form.valid"
+                    class="btn-symbol"
+                    type="submit">
+                <span class="material-symbols-outlined">save</span>
+            </button>
+            <button (click)="resetForm()"
+                    class="btn-symbol"
+                    type="button">
+                <span class="material-symbols-outlined">cancel</span>
+            </button>
+        </ng-container>
+        <button (click)="onDelete()"
+                class="btn-symbol"
                 type="button">
-            <span class="material-symbols-outlined">cancel</span>
+            <span class="material-symbols-outlined">delete</span>
         </button>
     </div>
     <ng-template #loadingElement>
-        <div>loading...</div>
+        <div class="loading">loading...</div>
     </ng-template>
 </form>
