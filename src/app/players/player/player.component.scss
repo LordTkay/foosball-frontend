@@ -1,41 +1,75 @@
 @use '../../../styles/abstract/mixins';
-@use '../../../styles/abstract/variables';
+@use '../../../styles/abstract/variables' as v;
 
 :host {
   display: block;
-  margin-bottom: variables.$spacing-4;
+  margin-bottom: v.$spacing-4;
 }
 
 input {
   display: block;
   width: 100%;
 
-  margin-bottom: variables.$spacing-2;
-  padding: variables.$spacing-1 variables.$spacing-2;
+  margin-bottom: v.$spacing-2;
+  padding: v.$spacing-1 v.$spacing-2;
 
   border: none;
-  border-bottom: 2px solid variables.$color-neutral;;
-  background-color: variables.$color-neutral;
-
-  &:focus,
-  &:hover {
-    outline: none;
-  }
+  border-bottom: 2px solid hsl(var(--color-neutral) / 50%);
 
   &.ng-dirty,
   &.ng-touched {
     &.ng-valid {
-      border-color: variables.$color-success;
+      border-color: hsl(var(--color-success) / 50%);
     }
 
     &.ng-invalid {
-      border-color: variables.$color-error;
+      border-color: hsl(var(--color-error) / 50%);
     }
-  }
-
-  &:focus-visible,
-  &:hover {
-
   }
 }
 
+.btn {
+  &-container {
+    display: flex;
+    justify-content: flex-end;
+    gap: v.$spacing-1;
+  }
+
+  &-symbol {
+    --background-alpha: 50%;
+    --background-alpha-hover: 70%;
+    --background-alpha-focus: 70%;
+
+    cursor: pointer;
+    border: none;
+    line-height: 1;
+    padding: v.$spacing-1 v.$spacing-4;
+
+    transition: background-color 200ms ease-in-out;
+
+    &.delete,
+    &.save {
+      --background-alpha: 80%;
+      --background-alpha-hover: 100%;
+      --background-alpha-focus: 100%;
+      color: white;
+    }
+
+    &.delete {
+      --background-color: var(--color-error);
+    }
+
+    &.save {
+      &:not(:disabled) {
+        --background-color: var(--color-success);
+      }
+
+      &:disabled {
+        opacity: 10%;
+        @media (prefers-color-scheme: light) {
+          color: black;
+        }
+      }
+    }
+  }
+}
