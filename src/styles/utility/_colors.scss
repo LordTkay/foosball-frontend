@@ -1,14 +1,14 @@
-@use "../abstract/mixins/property" as *;
+@use "../abstract/mixins";
 @use "../abstract/variables";
 
 
 :root {
-  @include get-property-map(variables.$colors) using($key, $value) {
+  @include mixins.get-property-map(variables.$colors) using($key, $value) {
     --color-#{$key}: #{$value};
   }
 }
 
-@include get-property-map(variables.$colors) using($key, $value) {
+@include mixins.get-property-map(variables.$colors) using($key, $value) {
   .clr-#{$key} {
     color: var(--color-#{$key});
   }

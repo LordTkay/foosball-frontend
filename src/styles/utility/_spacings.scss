@@ -1,10 +1,9 @@
-@use "../abstract/mixins/breakpoints" as *;
-@use "../abstract/mixins/property" as *;
+@use "../abstract/mixins";
 @use "../abstract/variables";
 
 
 :root {
-  @include get-property-map(variables.$spacing) using($key, $value) {
+  @include mixins.get-property-map(variables.$spacing) using($key, $value) {
     --spacing-#{$key}: #{$value};
   }
 }
@@ -13,8 +12,8 @@
 
   $infix: if($breakpoint-value != 0, -#{$breakpoint-key}, null);
 
-  @include media-breakpoint-up($breakpoint-key) {
-    @include get-property-map(variables.$spacing) using($key, $value) {
+  @include mixins.media-breakpoint-up($breakpoint-key) {
+    @include mixins.get-property-map(variables.$spacing) using($key, $value) {
 
       @each $property-name, $class-name in (margin: m, padding: p) {
         .#{$class-name}#{$infix}-#{$key} {
