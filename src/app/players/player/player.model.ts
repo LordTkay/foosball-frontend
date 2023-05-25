@@ -1,5 +1,5 @@
 export type Player = {
-  id: number,
+  readonly id: number,
   firstName: string,
   lastName: string,
   email?: string

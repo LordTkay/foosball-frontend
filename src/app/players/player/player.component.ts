@@ -54,7 +54,7 @@ export class PlayerComponent implements OnInit {
                     this.resetForm();
                 });
         } else {
-            this.playersService.editPlayer(this._player.id, this._player)
+            this.playersService.editPlayer(this._player)
                 .subscribe(() => this.loading = false);
         }
     }
