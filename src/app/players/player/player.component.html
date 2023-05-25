@@ -1,13 +1,17 @@
-<form #form="ngForm" (ngSubmit)="onSave()" [class.new-player]="newPlayer">
-    <input [(ngModel)]="_player.firstName"
-           name="firstName"
-           placeholder="First name"
-           required
-           type="text">
+<form #form="ngForm"
+      (keydown.escape)="onEscape($event)"
+      (ngSubmit)="onSave()"
+      [class.new-player]="newPlayer">
 
-    <input [(ngModel)]="_player.lastName"
-           name="lastName"
-           placeholder="Last name"
+  <input [(ngModel)]="_player.firstName"
+         name="firstName"
+         placeholder="First name"
+         required
+         type="text">
+
+  <input [(ngModel)]="_player.lastName"
+         name="lastName"
+         placeholder="Last name"
            required
            type="text">
 
@@ -36,7 +40,8 @@
             <span class="material-symbols-outlined">delete</span>
         </button>
     </div>
-    <ng-template #loadingElement>
+
+  <ng-template #loadingElement>
         <div class="loading">loading...</div>
     </ng-template>
 </form>
