@@ -1,70 +1,41 @@
+@use '../../../styles/abstract/mixins';
+@use '../../../styles/abstract/variables';
+
 :host {
   display: block;
-  margin-bottom: var(--spacing-2);
-}
-
-form {
-  display: grid;
-  grid-template-columns: 1fr 1fr 2fr 8rem;
-
-  &.new-player.ng-pristine {
-    opacity: 20%;
-  }
-
-  .ng-dirty,
-  .ng-touched {
-    &.ng-valid {
-      border-left-color: var(--color-success-400);
-    }
-
-    &.ng-invalid {
-      border-left-color: var(--color-error-400);
-    }
-  }
-}
-
-form,
-.buttons {
-  gap: var(--spacing-1);
-}
-
-.buttons {
-  display: flex;
-
-  > * {
-    flex: 1;
-  }
-}
-
-.btn-symbol {
-  all: unset;
-  cursor: pointer;
-  text-align: center;
-  display: inline-grid;
-  place-content: center;
-  height: 100%;
-
-  > span {
-    font-size: 2rem;
-  }
-
-  &.disabled > span {
-    color: var(--color-error-400);
-  }
+  margin-bottom: variables.$spacing-4;
 }
 
 input {
-  border: 1px solid black;
-  border-left-width: 4px;
+  display: block;
   width: 100%;
-  padding: var(--spacing-1) var(--spacing-2);
 
-  &:focus {
+  margin-bottom: variables.$spacing-2;
+  padding: variables.$spacing-1 variables.$spacing-2;
+
+  border: none;
+  border-bottom: 2px solid variables.$color-neutral;;
+  background-color: variables.$color-neutral;
+
+  &:focus,
+  &:hover {
     outline: none;
+  }
+
+  &.ng-dirty,
+  &.ng-touched {
+    &.ng-valid {
+      border-color: variables.$color-success;
+    }
+
+    &.ng-invalid {
+      border-color: variables.$color-error;
+    }
+  }
+
+  &:focus-visible,
+  &:hover {
+
   }
 }
 
-.loading {
-  display: inline-grid;
-  place-content: center;
-}

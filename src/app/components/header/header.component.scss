@@ -1,7 +1,5 @@
-// Header
-header {
-  padding: var(--spacing-1) var(--spacing-3);
+@use '../../../styles/abstract/variables';
 
-  color: var(--color-neutral-100);
-  background-color: var(--color-neutral-900);
+header {
+  padding: variables.$spacing-1 variables.$spacing-3;
 }

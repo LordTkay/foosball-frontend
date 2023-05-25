@@ -1,7 +1,8 @@
 <form #form="ngForm"
       (keydown.escape)="onEscape($event)"
       (ngSubmit)="onSave()"
-      [class.new-player]="newPlayer">
+      [class.new-player]="newPlayer"
+      class="">
 
   <input [(ngModel)]="_player.firstName"
          name="firstName"
@@ -12,36 +13,36 @@
   <input [(ngModel)]="_player.lastName"
          name="lastName"
          placeholder="Last name"
-           required
-           type="text">
+         required
+         type="text">
 
-    <input [(ngModel)]="_player.email"
-           name="email"
-           placeholder="E-Mail"
-           email
-           type="text">
+  <input [(ngModel)]="_player.email"
+         email
+         name="email"
+         placeholder="E-Mail"
+         type="text">
 
-    <div *ngIf="!loading; else loadingElement" class="buttons">
-        <ng-container *ngIf="form.dirty">
-            <button [class.disabled]="!form.valid"
-                    class="btn-symbol"
-                    type="submit">
-                <span class="material-symbols-outlined">save</span>
-            </button>
-            <button (click)="resetForm()"
-                    class="btn-symbol"
-                    type="button">
-                <span class="material-symbols-outlined">cancel</span>
-            </button>
-        </ng-container>
-        <button (click)="onDelete()" *ngIf="!newPlayer"
-                class="btn-symbol"
-                type="button">
-            <span class="material-symbols-outlined">delete</span>
-        </button>
-    </div>
+  <div *ngIf="!loading; else loadingElement" class="buttons">
+    <ng-container *ngIf="form.dirty">
+      <button [class.disabled]="!form.valid"
+              class="btn-symbol"
+              type="submit">
+        <span class="material-symbols-outlined">save</span>
+      </button>
+      <button (click)="resetForm()"
+              class="btn-symbol"
+              type="button">
+        <span class="material-symbols-outlined">cancel</span>
+      </button>
+    </ng-container>
+    <button (click)="onDelete()" *ngIf="!newPlayer"
+            class="btn-symbol"
+            type="button">
+      <span class="material-symbols-outlined">delete</span>
+    </button>
+  </div>
 
   <ng-template #loadingElement>
-        <div class="loading">loading...</div>
-    </ng-template>
+    <div class="loading">loading...</div>
+  </ng-template>
 </form>

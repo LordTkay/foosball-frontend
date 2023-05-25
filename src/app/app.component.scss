@@ -1,3 +1,5 @@
+@use '../styles/abstract/variables';
+
 :host {
   height: 100vh;
 
@@ -10,7 +12,7 @@
 
 main {
   grid-area: content;
-  padding: var(--spacing-3);
+  padding: variables.$spacing-3;
   overflow: auto;
 }
 

@@ -8,7 +8,11 @@
   @import "styles/utility";
 }
 
+:root {
+  color-scheme: dark light;
+}
+
 body {
   font-family: Roboto, sans-serif;
-  color: var(--color-neutral-900);
 }
+

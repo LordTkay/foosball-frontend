@@ -1,62 +1,62 @@
-@use "../abstract/mixins";
-@use "../abstract/variables";
-
-
-:root {
-  @include mixins.get-property-map(variables.$spacing) using($key, $value) {
-    --spacing-#{$key}: #{$value};
-  }
-}
-
-@each $breakpoint-key, $breakpoint-value in variables.$breakpoints {
-
-  $infix: if($breakpoint-value != 0, -#{$breakpoint-key}, null);
-
-  @include mixins.media-breakpoint-up($breakpoint-key) {
-    @include mixins.get-property-map(variables.$spacing) using($key, $value) {
-
-      @each $property-name, $class-name in (margin: m, padding: p) {
-        .#{$class-name}#{$infix}-#{$key} {
-          #{$property-name}: $value;
-        }
-        .#{$class-name}t#{$infix}-#{$key},
-        .#{$class-name}y#{$infix}-#{$key} {
-          #{$property-name}-top: $value;
-        }
-        .#{$class-name}r#{$infix}-#{$key},
-        .#{$class-name}x#{$infix}-#{$key} {
-          #{$property-name}-right: $value;
-        }
-        .#{$class-name}b#{$infix}-#{$key},
-        .#{$class-name}y#{$infix}-#{$key} {
-          #{$property-name}-bottom: $value;
-        }
-        .#{$class-name}l#{$infix}-#{$key},
-        .#{$class-name}x#{$infix}-#{$key} {
-          #{$property-name}-left: $value;
-        }
-      }
-
-      m#{$infix}-auto {
-        margin: auto;
-      }
-      m#{$infix}t-auto,
-      m#{$infix}y-auto {
-        margin-top: auto;
-      }
-      m#{$infix}r-auto,
-      m#{$infix}x-auto {
-        margin-right: auto;
-      }
-      m#{$infix}b-auto,
-      m#{$infix}y-auto {
-        margin-left: auto;
-      }
-      m#{$infix}l-auto,
-      m#{$infix}x-auto {
-        margin-bottom: auto;
-      }
-    }
-  }
-
-}
+//@use "../abstract/mixins";
+//@use "../abstract/variables";
+//
+//
+//:root {
+//  @include mixins.get-property-map(variables.$spacing) using($key, $value) {
+//    --spacing-#{$key}: #{$value};
+//  }
+//}
+//
+//@each $breakpoint-key, $breakpoint-value in variables.$breakpoints {
+//
+//  $infix: if($breakpoint-value != 0, -#{$breakpoint-key}, null);
+//
+//  @include mixins.media-breakpoint-up($breakpoint-key) {
+//    @include mixins.get-property-map(variables.$spacing) using($key, $value) {
+//
+//      @each $property-name, $class-name in (margin: m, padding: p) {
+//        .#{$class-name}#{$infix}-#{$key} {
+//          #{$property-name}: $value;
+//        }
+//        .#{$class-name}t#{$infix}-#{$key},
+//        .#{$class-name}y#{$infix}-#{$key} {
+//          #{$property-name}-top: $value;
+//        }
+//        .#{$class-name}r#{$infix}-#{$key},
+//        .#{$class-name}x#{$infix}-#{$key} {
+//          #{$property-name}-right: $value;
+//        }
+//        .#{$class-name}b#{$infix}-#{$key},
+//        .#{$class-name}y#{$infix}-#{$key} {
+//          #{$property-name}-bottom: $value;
+//        }
+//        .#{$class-name}l#{$infix}-#{$key},
+//        .#{$class-name}x#{$infix}-#{$key} {
+//          #{$property-name}-left: $value;
+//        }
+//      }
+//
+//      m#{$infix}-auto {
+//        margin: auto;
+//      }
+//      m#{$infix}t-auto,
+//      m#{$infix}y-auto {
+//        margin-top: auto;
+//      }
+//      m#{$infix}r-auto,
+//      m#{$infix}x-auto {
+//        margin-right: auto;
+//      }
+//      m#{$infix}b-auto,
+//      m#{$infix}y-auto {
+//        margin-left: auto;
+//      }
+//      m#{$infix}l-auto,
+//      m#{$infix}x-auto {
+//        margin-bottom: auto;
+//      }
+//    }
+//  }
+//
+//}
