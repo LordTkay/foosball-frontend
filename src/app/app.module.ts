@@ -13,18 +13,20 @@ import { ScoreboardComponent } from './scoreboard/scoreboard.component';
 import { PlayerComponent } from './players/player/player.component';
 import { FormsModule } from "@angular/forms";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { LoadingComponent } from './components/loading-spinner/loading.component';
 
 registerLocaleData(localeDe)
 
 @NgModule({
     declarations: [
-        AppComponent,
-        HeaderComponent,
-        NavigationComponent,
-        ScoreboardComponent,
+      AppComponent,
+      HeaderComponent,
+      NavigationComponent,
+      ScoreboardComponent,
 
-        PlayersComponent,
-        PlayerComponent,
+      PlayersComponent,
+      PlayerComponent,
+      LoadingComponent,
     ],
     imports: [
         BrowserModule,
