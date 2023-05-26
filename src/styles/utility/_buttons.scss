@@ -2,7 +2,7 @@
 @use './colors';
 
 .btn {
-  @include colors.glassy-background;
+  @include colors.glassy-element;
   --background-alpha: 50%;
   --background-alpha-hover: 70%;
   --background-alpha-focus: 70%;
@@ -33,7 +33,7 @@
 
   &:disabled,
   &.disabled {
-    opacity: 10%;
+    opacity: 20%;
     @media (prefers-color-scheme: light) {
       color: black;
     }

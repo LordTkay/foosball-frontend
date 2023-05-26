@@ -5,40 +5,45 @@
       class="">
 
   <input [(ngModel)]="_player.firstName"
+         [attr.disabled]="loading ? true : null"
          name="firstName"
          placeholder="First name"
          required
-         class="glassy-background"
+         class="glassy-element"
          type="text">
 
   <input [(ngModel)]="_player.lastName"
+         [attr.disabled]="loading ? true : null"
          name="lastName"
          placeholder="Last name"
          required
-         class="glassy-background"
+         class="glassy-element"
          type="text">
 
   <input [(ngModel)]="_player.email"
+         [attr.disabled]="loading ? true : null"
          email
          name="email"
          placeholder="E-Mail"
-         class="glassy-background"
+         class="glassy-element"
          type="text">
 
-  <div *ngIf="!loading; else loadingElement" class="btn-container">
+  <div class="btn-container">
     <ng-container *ngIf="form.dirty">
-      <button [disabled]="!form.valid"
+      <button [disabled]="!form.valid || loading"
               class="btn symbol save"
               type="submit">
         <span class="material-symbols-outlined">save</span>
       </button>
       <button (click)="resetForm()"
+              [disabled]="loading"
               class="btn symbol cancel"
               type="button">
         <span class="material-symbols-outlined">cancel</span>
       </button>
     </ng-container>
     <button (click)="onDelete()" *ngIf="!newPlayer"
+            [disabled]="loading"
             class="btn symbol delete"
             type="button">
       <span class="material-symbols-outlined">delete</span>

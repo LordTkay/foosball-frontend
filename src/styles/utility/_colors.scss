@@ -13,7 +13,7 @@
 }
 
 
-@mixin glassy-background {
+@mixin glassy-element {
   transition: background-color 200ms ease-in-out,
   color 200ms ease-in-out;
   background-color: hsl(var(--background-color) / var(--background-alpha));
@@ -32,8 +32,14 @@
       background-color: hsl(var(--background-color) / var(--background-alpha-focus));
     }
   }
+
+  &:disabled,
+  &.disabled {
+    opacity: 50%;
+    cursor: not-allowed;
+  }
 }
 
-.glassy-background {
-  @include glassy-background;
+.glassy-element {
+  @include glassy-element;
 }
