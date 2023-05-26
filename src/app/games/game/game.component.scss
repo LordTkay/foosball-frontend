@@ -27,11 +27,7 @@ legend {
     padding: v.$spacing-2;
     min-width: 2ch;
     box-sizing: content-box;
-    background-color: hsl(var(--color-neutral) / 40%);
-
-    .winner & {
-      background-color: hsl(var(--color-success) / 40%);
-    }
+    background-color: hsl(var(--currentColor, var(--color-neutral)) / 50%);
   }
 
   &-players {
@@ -56,11 +52,21 @@ legend {
   }
 
   &-position-icon {
-    color: hsl(var(--color-neutral) / 40%);
+    color: hsl(var(--currentColor, var(--color-neutral)) / 50%);
+  }
+}
 
-    .winner & {
-      color: hsl(var(--color-success) / 40%);
-    }
+.winner {
+  .team-position-icon,
+  .team-score {
+    --currentColor: var(--color-success);
+  }
+}
+
+.loser {
+  .team-position-icon,
+  .team-score {
+    --currentColor: var(--color-error);
   }
 }
 

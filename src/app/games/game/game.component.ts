@@ -20,7 +20,7 @@ export class GameComponent {
     return {
       score: this.game.scores[teamName as Teams],
       team: this.game.teams[teamName as Teams]!,
-      winner: this.game.winner === teamName
+      winner: this.game.winner
     }
   }
 

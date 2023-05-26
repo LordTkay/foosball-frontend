@@ -6,7 +6,8 @@
 </fieldset>
 
 <ng-template #teamOverview let-teamName="teamName">
-  <div *ngIf="getTeam(teamName) as teamData" [ngClass]="[teamName, (teamData.winner ? 'winner' : 'loser')]"
+  <div *ngIf="getTeam(teamName) as teamData"
+       [ngClass]="[teamName, (teamData.winner === teamName ? 'winner' : teamData.winner === 'draw' ? 'draw' : 'loser')]"
        class="team-overview">
     <div class="team-score">{{teamData.score}}</div>
     <div class="team-players">
