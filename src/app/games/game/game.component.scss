@@ -1,37 +1,70 @@
-.game {
-  border: 1px solid #808080;
-  padding: 10px;
-  margin-bottom: 10px;
+@use "../../../styles/abstract/variables" as v;
 
-  .game-info {
-    font-weight: bold;
-    margin-bottom: 5px;
+:host {
+  display: block;
+}
+
+fieldset {
+  border: 1px solid hsl(var(--color-neutral) / 50%);
+  margin-bottom: v.$spacing-4;
+  padding: v.$spacing-2;
+}
+
+legend {
+  padding-inline: v.$spacing-2;
+}
+
+.team {
+
+  &-overview {
+    display: flex;
   }
 
-  .team {
-    display: flex;
-    justify-content: space-between;
+  &-score {
+    display: inline-grid;
+    place-content: center;
+    text-align: center;
+    padding: v.$spacing-2;
+    min-width: 2ch;
+    box-sizing: content-box;
+    background-color: hsl(var(--color-neutral) / 40%);
 
-    .team1,
-    .team2 {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-
-      .player {
-        margin-bottom: 5px;
-      }
-
-      .score {
-        font-size: 18px;
-        font-weight: bold;
-      }
+    .winner & {
+      background-color: hsl(var(--color-success) / 40%);
     }
   }
 
-  .vs {
-    font-size: 20px;
-    font-weight: bold;
-    margin: 0 10px;
+  &-players {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    .black & {
+      flex-direction: column-reverse;
+    }
   }
+
+  &-player {
+    display: flex;
+    align-items: center;
+    padding: v.$spacing-2;
+    background-color: hsl(var(--color-neutral) / 10%);
+
+    &-name {
+      flex: 1;
+    }
+  }
+
+  &-position-icon {
+    color: hsl(var(--color-neutral) / 40%);
+
+    .winner & {
+      color: hsl(var(--color-success) / 40%);
+    }
+  }
+}
+
+.versus-text {
+  text-align: center;
+  padding-block: v.$spacing-2;
 }

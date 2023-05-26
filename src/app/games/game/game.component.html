@@ -1,19 +1,23 @@
-<div class="game">
-  <div class="game-info">
-    <span class="game-id">{{ game.id }}</span>
-    <span class="game-date"> {{ game.playDate | date : 'medium' }}</span>
-  </div>
-  <div class="team">
-    <div class="team1">
-      <span class="player">{{ game.yellowTeam.defender.lastName }}</span>
-      <span class="player">{{ game.yellowTeam.attacker.lastName }}</span>
-      <span class="score">{{ game.scores.yellow }}</span>
+<fieldset>
+  <legend>{{game.playDate | date : 'medium'}}</legend>
+  <ng-container *ngTemplateOutlet="teamOverview; context: {teamName: 'yellow'}"/>
+  <div class="versus-text">VS</div>
+  <ng-container *ngTemplateOutlet="teamOverview; context: {teamName: 'black'}"/>
+</fieldset>
+
+<ng-template #teamOverview let-teamName="teamName">
+  <div *ngIf="getTeam(teamName) as teamData" [ngClass]="[teamName, (teamData.winner ? 'winner' : 'loser')]"
+       class="team-overview">
+    <div class="team-score">{{teamData.score}}</div>
+    <div class="team-players">
+      <div class="team-player defender">
+        <div class="team-player-name">{{teamData.team.defender.firstName}} {{teamData.team.defender.lastName}}</div>
+        <div class="team-position-icon defender material-symbols-sharp">shield</div>
+      </div>
+      <div class="team-player attacker">
+        <div class="team-player-name">{{teamData.team.attacker.firstName}} {{teamData.team.attacker.lastName}}</div>
+        <div class="team-position-icon attacker material-symbols-sharp">swords</div>
+      </div>
     </div>
-    <div class="vs">VS</div>
-    <div class="team2">
-      <span class="player">{{ game.blackTeam.defender.lastName }}</span>
-      <span class="player">{{ game.blackTeam.attacker.lastName }}</span>
-      <span class="score">{{ game.scores.black }}</span>
-    </div>
   </div>
-</div>
+</ng-template>
