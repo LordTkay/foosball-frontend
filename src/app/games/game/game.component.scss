@@ -6,7 +6,7 @@
 
 fieldset {
   border: 1px solid hsl(var(--color-neutral) / 50%);
-  margin-bottom: v.$spacing-4;
+  margin-bottom: v.$spacing-5;
   padding: v.$spacing-2;
 }
 
@@ -16,5 +16,5 @@ legend {
 
 .versus-text {
   text-align: center;
-  padding-block: v.$spacing-2;
+  padding-block: v.$spacing-1;
 }
