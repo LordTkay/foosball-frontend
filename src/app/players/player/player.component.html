@@ -50,7 +50,5 @@
     </button>
   </div>
 
-  <ng-template #loadingElement>
-    <div class="loading">loading...</div>
-  </ng-template>
+  <app-loading-spinner *ngIf="loading" class="loading-container"/>
 </form>

@@ -4,6 +4,7 @@
 :host {
   display: block;
   margin-bottom: v.$spacing-4;
+  position: relative;
 }
 
 input {
@@ -32,4 +33,11 @@ input {
   display: flex;
   justify-content: flex-end;
   gap: v.$spacing-1;
+}
+
+.loading-container {
+  position: absolute;
+  inset: 0;
+  display: inline-grid;
+  place-content: center;
 }
