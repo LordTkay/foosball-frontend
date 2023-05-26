@@ -1,1 +1,1 @@
-<app-game *ngFor="let game of games(); trackBy: gameTrackBy; sortBy: gameSortByDate " [game]="game"/>
+<app-game *ngFor="let game of games() | sortBy : 'playDate'; trackBy: gameTrackBy" [game]="game"/>
