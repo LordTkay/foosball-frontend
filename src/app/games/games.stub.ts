@@ -1,6 +1,189 @@
 import { Game } from "./game/game.model";
 import { playersStub } from "../players/player/player.stub";
 
+const additionalGames: Game[] = [
+  {
+    id: 3,
+    playDate: new Date(2023, 4, 28, 14, 30, 0),
+    teams: {
+      yellow: { attacker: playersStub.get(1)!, defender: playersStub.get(2)! },
+      black: { attacker: playersStub.get(0)!, defender: playersStub.get(3)! }
+    },
+    scores: { black: 2, yellow: 3 },
+    winner: 'yellow'
+  },
+  {
+    id: 4,
+    playDate: new Date(2023, 4, 29, 16, 45, 0),
+    teams: {
+      yellow: { attacker: playersStub.get(2)!, defender: playersStub.get(3)! },
+      black: { attacker: playersStub.get(0)!, defender: playersStub.get(1)! }
+    },
+    scores: { black: 4, yellow: 2 },
+    winner: 'black'
+  },
+  {
+    id: 5,
+    playDate: new Date(2023, 4, 30, 18, 15, 0),
+    teams: {
+      yellow: { attacker: playersStub.get(1)!, defender: playersStub.get(3)! },
+      black: { attacker: playersStub.get(0)!, defender: playersStub.get(2)! }
+    },
+    scores: { black: 1, yellow: 1 },
+    winner: 'draw'
+  },
+  {
+    id: 6,
+    playDate: new Date(2023, 5, 1, 10, 0, 0),
+    teams: {
+      yellow: { attacker: playersStub.get(2)!, defender: playersStub.get(0)! },
+      black: { attacker: playersStub.get(1)!, defender: playersStub.get(3)! }
+    },
+    scores: { black: 3, yellow: 2 },
+    winner: 'black'
+  },
+  {
+    id: 7,
+    playDate: new Date(2023, 5, 2, 11, 30, 0),
+    teams: {
+      yellow: { attacker: playersStub.get(3)!, defender: playersStub.get(1)! },
+      black: { attacker: playersStub.get(0)!, defender: playersStub.get(2)! }
+    },
+    scores: { black: 4, yellow: 4 },
+    winner: 'draw'
+  },
+  {
+    id: 8,
+    playDate: new Date(2023, 5, 3, 13, 0, 0),
+    teams: {
+      yellow: { attacker: playersStub.get(0)!, defender: playersStub.get(2)! },
+      black: { attacker: playersStub.get(1)!, defender: playersStub.get(3)! }
+    },
+    scores: { black: 3, yellow: 5 },
+    winner: 'yellow'
+  },
+  {
+    id: 9,
+    playDate: new Date(2023, 5, 4, 15, 15, 0),
+    teams: {
+      yellow: { attacker: playersStub.get(1)!, defender: playersStub.get(3)! },
+      black: { attacker: playersStub.get(0)!, defender: playersStub.get(2)! }
+    },
+    scores: { black: 1, yellow: 2 },
+    winner: 'yellow'
+  },
+  {
+    id: 10,
+    playDate: new Date(2023, 5, 5, 16, 45, 0),
+    teams: {
+      yellow: { attacker: playersStub.get(0)!, defender: playersStub.get(1)! },
+      black: { attacker: playersStub.get(2)!, defender: playersStub.get(3)! }
+    },
+    scores: { black: 4, yellow: 4 },
+    winner: 'draw'
+  },
+  {
+    id: 11,
+    playDate: new Date(2023, 5, 6, 9, 30, 0),
+    teams: {
+      yellow: { attacker: playersStub.get(3)!, defender: playersStub.get(2)! },
+      black: { attacker: playersStub.get(1)!, defender: playersStub.get(0)! }
+    },
+    scores: { black: 3, yellow: 2 },
+    winner: 'black'
+  },
+  {
+    id: 12,
+    playDate: new Date(2023, 5, 7, 12, 0, 0),
+    teams: {
+      yellow: { attacker: playersStub.get(0)!, defender: playersStub.get(3)! },
+      black: { attacker: playersStub.get(2)!, defender: playersStub.get(1)! }
+    },
+    scores: { black: 1, yellow: 1 },
+    winner: 'draw'
+  },
+  {
+    id: 13,
+    playDate: new Date(2023, 5, 8, 14, 45, 0),
+    teams: {
+      yellow: { attacker: playersStub.get(2)!, defender: playersStub.get(0)! },
+      black: { attacker: playersStub.get(3)!, defender: playersStub.get(1)! }
+    },
+    scores: { black: 2, yellow: 4 },
+    winner: 'yellow'
+  },
+  {
+    id: 14,
+    playDate: new Date(2023, 5, 9, 16, 15, 0),
+    teams: {
+      yellow: { attacker: playersStub.get(3)!, defender: playersStub.get(2)! },
+      black: { attacker: playersStub.get(0)!, defender: playersStub.get(1)! }
+    },
+    scores: { black: 3, yellow: 3 },
+    winner: 'draw'
+  },
+  {
+    id: 15,
+    playDate: new Date(2023, 5, 10, 9, 0, 0),
+    teams: {
+      yellow: { attacker: playersStub.get(0)!, defender: playersStub.get(3)! },
+      black: { attacker: playersStub.get(1)!, defender: playersStub.get(2)! }
+    },
+    scores: { black: 2, yellow: 4 },
+    winner: 'yellow'
+  },
+  {
+    id: 16,
+    playDate: new Date(2023, 5, 11, 10, 45, 0),
+    teams: {
+      yellow: { attacker: playersStub.get(2)!, defender: playersStub.get(1)! },
+      black: { attacker: playersStub.get(0)!, defender: playersStub.get(3)! }
+    },
+    scores: { black: 1, yellow: 2 },
+    winner: 'yellow'
+  },
+  {
+    id: 17,
+    playDate: new Date(2023, 5, 12, 12, 30, 0),
+    teams: {
+      yellow: { attacker: playersStub.get(1)!, defender: playersStub.get(3)! },
+      black: { attacker: playersStub.get(2)!, defender: playersStub.get(0)! }
+    },
+    scores: { black: 3, yellow: 2 },
+    winner: 'black'
+  },
+  {
+    id: 18,
+    playDate: new Date(2023, 5, 13, 14, 15, 0),
+    teams: {
+      yellow: { attacker: playersStub.get(3)!, defender: playersStub.get(2)! },
+      black: { attacker: playersStub.get(0)!, defender: playersStub.get(1)! }
+    },
+    scores: { black: 4, yellow: 4 },
+    winner: 'draw'
+  },
+  {
+    id: 19,
+    playDate: new Date(2023, 5, 14, 16, 0, 0),
+    teams: {
+      yellow: { attacker: playersStub.get(0)!, defender: playersStub.get(2)! },
+      black: { attacker: playersStub.get(1)!, defender: playersStub.get(3)! }
+    },
+    scores: { black: 1, yellow: 3 },
+    winner: 'yellow'
+  },
+  {
+    id: 20,
+    playDate: new Date(2023, 5, 15, 10, 30, 0),
+    teams: {
+      yellow: { attacker: playersStub.get(1)!, defender: playersStub.get(3)! },
+      black: { attacker: playersStub.get(0)!, defender: playersStub.get(2)! }
+    },
+    scores: { black: 2, yellow: 2 },
+    winner: 'draw'
+  }
+];
+
 export const gamesStub = new Map<Game['id'], Game>([
 
   [0, {
@@ -36,4 +219,8 @@ export const gamesStub = new Map<Game['id'], Game>([
     winner: 'black'
   }],
 
+  ...additionalGames.map((game, index) => [game.id, game] as [Game['id'], Game])
+
 ])
+
+
