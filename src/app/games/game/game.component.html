@@ -1,0 +1,19 @@
+<div class="game">
+  <div class="game-info">
+    <span class="game-id">{{ game.id }}</span>
+    <span class="game-date"> {{ game.playDate | date : 'medium' }}</span>
+  </div>
+  <div class="team">
+    <div class="team1">
+      <span class="player">{{ game.yellowTeam.defender.lastName }}</span>
+      <span class="player">{{ game.yellowTeam.attacker.lastName }}</span>
+      <span class="score">{{ game.scores.yellow }}</span>
+    </div>
+    <div class="vs">VS</div>
+    <div class="team2">
+      <span class="player">{{ game.blackTeam.defender.lastName }}</span>
+      <span class="player">{{ game.blackTeam.attacker.lastName }}</span>
+      <span class="score">{{ game.scores.black }}</span>
+    </div>
+  </div>
+</div>

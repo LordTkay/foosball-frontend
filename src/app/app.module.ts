@@ -14,22 +14,24 @@ import { PlayerComponent } from './players/player/player.component';
 import { FormsModule } from "@angular/forms";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { LoadingComponent } from './components/loading-spinner/loading.component';
-import { GameComponent } from './scoreboard/game/game.component';
+import { GameComponent } from './games/game/game.component';
+import { GamesComponent } from './games/games.component';
 
 registerLocaleData(localeDe)
 
 @NgModule({
-    declarations: [
-      AppComponent,
-      HeaderComponent,
-      NavigationComponent,
-      ScoreboardComponent,
+  declarations: [
+    AppComponent,
+    HeaderComponent,
+    NavigationComponent,
+    ScoreboardComponent,
 
-      PlayersComponent,
-      PlayerComponent,
-      LoadingComponent,
-      GameComponent,
-    ],
+    PlayersComponent,
+    PlayerComponent,
+    LoadingComponent,
+    GameComponent,
+    GamesComponent,
+  ],
     imports: [
         BrowserModule,
         HttpClientModule,
