@@ -12,7 +12,8 @@
   --background-alpha-focus: 0.35;
 }
 
-.glassy-background {
+
+@mixin glassy-background {
   transition: background-color 200ms ease-in-out,
   color 200ms ease-in-out;
   background-color: hsl(var(--background-color) / var(--background-alpha));
@@ -31,4 +32,8 @@
       background-color: hsl(var(--background-color) / var(--background-alpha-focus));
     }
   }
+}
+
+.glassy-background {
+  @include glassy-background;
 }

@@ -28,18 +28,18 @@
   <div *ngIf="!loading; else loadingElement" class="btn-container">
     <ng-container *ngIf="form.dirty">
       <button [disabled]="!form.valid"
-              class="btn-symbol save glassy-background"
+              class="btn symbol save"
               type="submit">
         <span class="material-symbols-outlined">save</span>
       </button>
       <button (click)="resetForm()"
-              class="btn-symbol cancel glassy-background"
+              class="btn symbol cancel"
               type="button">
         <span class="material-symbols-outlined">cancel</span>
       </button>
     </ng-container>
     <button (click)="onDelete()" *ngIf="!newPlayer"
-            class="btn-symbol delete glassy-background"
+            class="btn symbol delete"
             type="button">
       <span class="material-symbols-outlined">delete</span>
     </button>

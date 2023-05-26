@@ -28,48 +28,8 @@ input {
   }
 }
 
-.btn {
-  &-container {
-    display: flex;
-    justify-content: flex-end;
-    gap: v.$spacing-1;
-  }
-
-  &-symbol {
-    --background-alpha: 50%;
-    --background-alpha-hover: 70%;
-    --background-alpha-focus: 70%;
-
-    cursor: pointer;
-    border: none;
-    line-height: 1;
-    padding: v.$spacing-1 v.$spacing-4;
-
-    transition: background-color 200ms ease-in-out;
-
-    &.delete,
-    &.save {
-      --background-alpha: 80%;
-      --background-alpha-hover: 100%;
-      --background-alpha-focus: 100%;
-      color: white;
-    }
-
-    &.delete {
-      --background-color: var(--color-error);
-    }
-
-    &.save {
-      &:not(:disabled) {
-        --background-color: var(--color-success);
-      }
-
-      &:disabled {
-        opacity: 10%;
-        @media (prefers-color-scheme: light) {
-          color: black;
-        }
-      }
-    }
-  }
+.btn-container {
+  display: flex;
+  justify-content: flex-end;
+  gap: v.$spacing-1;
 }
