@@ -1,8 +1,16 @@
 @use "../../../../styles/abstract/variables" as v;
+@use "../../../../styles/abstract/mixins";
 
 :host {
   display: flex;
   border: 1px solid transparent;
+
+  @include mixins.media-breakpoint-up('sm') {
+    flex-direction: row-reverse;
+    &.reverse-players-order {
+      flex-direction: row;
+    }
+  }
 }
 
 .team {
@@ -23,18 +31,30 @@
     width: 100%;
     background-color: hsl(var(--color-neutral) / 10%);
 
-    :host.reverse-players-order & {
-      flex-direction: column-reverse;
+    @include mixins.media-breakpoint-down('xs') {
+      :host.reverse-players-order & {
+        flex-direction: column-reverse;
+      }
     }
   }
 
   &-player {
     display: flex;
     align-items: center;
-    padding: v.$spacing-2;
+    padding: v.$spacing-2 v.$spacing-3;
+    gap: v.$spacing-2;
 
     &-name {
       flex: 1;
+    }
+
+    @include mixins.media-breakpoint-up('sm') {
+      flex-direction: row-reverse;
+      text-align: end;
+      :host.reverse-players-order & {
+        text-align: start;
+        flex-direction: row;
+      }
     }
   }
 

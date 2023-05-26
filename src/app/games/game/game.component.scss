@@ -1,4 +1,5 @@
 @use "../../../styles/abstract/variables" as v;
+@use "../../../styles/abstract/mixins";
 
 :host {
   display: block;
@@ -16,5 +17,17 @@ legend {
 
 .versus-text {
   text-align: center;
-  padding-block: v.$spacing-1;
+  padding: v.$spacing-1 v.$spacing-4;
+}
+
+@include mixins.media-breakpoint-up('sm') {
+  fieldset {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    > app-team-overview {
+      flex: 1;
+    }
+  }
 }

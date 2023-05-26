@@ -1,0 +1,7 @@
+@use "../../styles/abstract/variables" as v;
+
+:host {
+  display: block;
+  margin-inline: auto;
+  max-width: map-get(v.$breakpoints, 'md');
+}

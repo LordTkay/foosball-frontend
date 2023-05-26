@@ -1,8 +1,23 @@
 @use "../variables/breakpoints";
 
+@function breakpoint-next($name, $breakpoints, $breakpoint-names: map-keys($breakpoints)) {
+  $n: index($breakpoint-names, $name);
+  @return if($n < length($breakpoint-names), nth($breakpoint-names, $n + 1), null);
+}
+
+@function breakpoint-min($name, $breakpoints) {
+  $min: map-get($breakpoints, $name);
+  @return if($min != 0, $min, null);
+}
+
 @function breakpoint-up($breakpoint-key, $breakpoints) {
   $breakpoint-value: map-get($breakpoints, $breakpoint-key);
   @return if($breakpoint-value != 0, $breakpoint-value, null);
+}
+
+@function breakpoint-max($name, $breakpoints) {
+  $next: breakpoint-next($name, $breakpoints);
+  @return if($next, breakpoint-min($next, $breakpoints) - .02px, null);
 }
 
 @mixin media-breakpoint-up($breakpoint-key, $breakpoints: breakpoints.$breakpoints) {
@@ -13,5 +28,16 @@
     }
   } @else {
     @content
+  }
+}
+
+@mixin media-breakpoint-down($name, $breakpoints: breakpoints.$breakpoints) {
+  $max: breakpoint-max($name, $breakpoints);
+  @if $max {
+    @media (max-width: $max) {
+      @content;
+    }
+  } @else {
+    @content;
   }
 }
