@@ -33,20 +33,20 @@
       <button [disabled]="!form.valid || loading"
               class="btn symbol save"
               type="submit">
-        <span class="material-symbols-outlined">save</span>
+        <span class="material-symbols-sharp">save</span>
       </button>
       <button (click)="resetForm()"
               [disabled]="loading"
               class="btn symbol cancel"
               type="button">
-        <span class="material-symbols-outlined">cancel</span>
+        <span class="material-symbols-sharp">cancel</span>
       </button>
     </ng-container>
     <button (click)="onDelete()" *ngIf="!newPlayer"
             [disabled]="loading"
             class="btn symbol delete"
             type="button">
-      <span class="material-symbols-outlined">delete</span>
+      <span class="material-symbols-sharp">delete</span>
     </button>
   </div>
 
