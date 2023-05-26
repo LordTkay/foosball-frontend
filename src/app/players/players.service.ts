@@ -2,19 +2,14 @@ import { computed, Injectable, signal } from '@angular/core';
 import { Player, Players } from "./player/player.model";
 import { environment } from "../../environments/environment";
 import { delay, of, take, tap } from "rxjs";
+import { playersStub } from "./player/player.stub";
 
 @Injectable({
   providedIn: 'root'
 })
 export class PlayersService {
 
-  private playersStub = new Map<Player['id'], Player>([
-    { id: 0, firstName: 'Tobias', lastName: 'Wagner', email: 'Tobias.Wagner@MetallRente-Services.de' },
-    { id: 1, firstName: 'Gareth', lastName: 'Schmutz' },
-    { id: 2, firstName: 'Sven', lastName: 'Hanl' }
-  ].map(player => [player.id, player]))
-
-  private playersMap = signal<Map<Player['id'], Player>>(new Map([]))
+  private playersMap = signal<Map<Player['id'], Player>>(new Map())
   players = computed<Players>(() => Array.from(this.playersMap().values()))
 
   constructor() {
@@ -70,7 +65,7 @@ export class PlayersService {
     if (environment.production) {
       //ToDo Fetch Players from Backend
     } else {
-      this.playersMap.set(this.playersStub)
+      this.playersMap.set(playersStub)
     }
   }
 }
