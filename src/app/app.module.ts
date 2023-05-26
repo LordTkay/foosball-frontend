@@ -16,6 +16,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { LoadingComponent } from './components/loading-spinner/loading.component';
 import { GameComponent } from './games/game/game.component';
 import { GamesComponent } from './games/games.component';
+import { TeamOverviewComponent } from './games/game/team-overview/team-overview.component';
 
 registerLocaleData(localeDe)
 
@@ -31,6 +32,7 @@ registerLocaleData(localeDe)
     LoadingComponent,
     GameComponent,
     GamesComponent,
+    TeamOverviewComponent,
   ],
     imports: [
         BrowserModule,

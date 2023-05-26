@@ -14,62 +14,6 @@ legend {
   padding-inline: v.$spacing-2;
 }
 
-.team {
-
-  &-overview {
-    display: flex;
-  }
-
-  &-score {
-    display: inline-grid;
-    place-content: center;
-    text-align: center;
-    padding: v.$spacing-2;
-    min-width: 2ch;
-    box-sizing: content-box;
-    background-color: hsl(var(--currentColor, var(--color-neutral)) / 50%);
-  }
-
-  &-players {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    background-color: hsl(var(--color-neutral) / 10%);
-
-    .black & {
-      flex-direction: column-reverse;
-    }
-  }
-
-  &-player {
-    display: flex;
-    align-items: center;
-    padding: v.$spacing-2;
-
-    &-name {
-      flex: 1;
-    }
-  }
-
-  &-position-icon {
-    color: hsl(var(--currentColor, var(--color-neutral)) / 50%);
-  }
-}
-
-.winner {
-  .team-position-icon,
-  .team-score {
-    --currentColor: var(--color-success);
-  }
-}
-
-.loser {
-  .team-position-icon,
-  .team-score {
-    --currentColor: var(--color-error);
-  }
-}
-
 .versus-text {
   text-align: center;
   padding-block: v.$spacing-2;

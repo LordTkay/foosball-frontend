@@ -1,24 +1,8 @@
 <fieldset>
   <legend>{{game.playDate | date : 'medium'}}</legend>
-  <ng-container *ngTemplateOutlet="teamOverview; context: {teamName: 'yellow'}"/>
+  <app-team-overview [game]="game" [teamName]="'yellow'"/>
   <div class="versus-text">VS</div>
-  <ng-container *ngTemplateOutlet="teamOverview; context: {teamName: 'black'}"/>
+  <app-team-overview [game]="game" [teamName]="'black'"/>
 </fieldset>
 
-<ng-template #teamOverview let-teamName="teamName">
-  <div *ngIf="getTeam(teamName) as teamData"
-       [ngClass]="[teamName, (teamData.winner === teamName ? 'winner' : teamData.winner === 'draw' ? 'draw' : 'loser')]"
-       class="team-overview">
-    <div class="team-score">{{teamData.score}}</div>
-    <div class="team-players">
-      <div class="team-player defender">
-        <div class="team-player-name">{{teamData.team.defender.firstName}} {{teamData.team.defender.lastName}}</div>
-        <div class="team-position-icon defender material-symbols-sharp">shield</div>
-      </div>
-      <div class="team-player attacker">
-        <div class="team-player-name">{{teamData.team.attacker.firstName}} {{teamData.team.attacker.lastName}}</div>
-        <div class="team-position-icon attacker material-symbols-sharp">swords</div>
-      </div>
-    </div>
-  </div>
-</ng-template>
+<!-- ToDo Maybe adding a crown on the number of the winner-->
