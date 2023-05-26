@@ -14,6 +14,7 @@ import { PlayerComponent } from './players/player/player.component';
 import { FormsModule } from "@angular/forms";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { LoadingComponent } from './components/loading-spinner/loading.component';
+import { GameComponent } from './scoreboard/game/game.component';
 
 registerLocaleData(localeDe)
 
@@ -27,6 +28,7 @@ registerLocaleData(localeDe)
       PlayersComponent,
       PlayerComponent,
       LoadingComponent,
+      GameComponent,
     ],
     imports: [
         BrowserModule,

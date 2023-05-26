@@ -1,5 +1,5 @@
 import { computed, Injectable, signal } from '@angular/core';
-import { Player } from "./player/player.model";
+import { Player, Players } from "./player/player.model";
 import { environment } from "../../environments/environment";
 import { delay, of, take, tap } from "rxjs";
 
@@ -15,7 +15,7 @@ export class PlayersService {
   ].map(player => [player.id, player]))
 
   private playersMap = signal<Map<Player['id'], Player>>(new Map([]))
-  players = computed(() => Array.from(this.playersMap().values()))
+  players = computed<Players>(() => Array.from(this.playersMap().values()))
 
   constructor() {
     this.fetchPlayers()
