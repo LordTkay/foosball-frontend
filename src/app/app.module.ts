@@ -17,6 +17,7 @@ import { LoadingComponent } from './components/loading-spinner/loading.component
 import { GameComponent } from './games/game/game.component';
 import { GamesComponent } from './games/games.component';
 import { TeamOverviewComponent } from './games/game/team-overview/team-overview.component';
+import { SortByPipe } from "./pipes/sort-by-date.pipe";
 
 registerLocaleData(localeDe)
 
@@ -25,28 +26,30 @@ registerLocaleData(localeDe)
     AppComponent,
     HeaderComponent,
     NavigationComponent,
-    ScoreboardComponent,
+    LoadingComponent,
 
+    ScoreboardComponent,
     PlayersComponent,
     PlayerComponent,
-    LoadingComponent,
-    GameComponent,
     GamesComponent,
+    GameComponent,
     TeamOverviewComponent,
-  ],
-    imports: [
-        BrowserModule,
-        HttpClientModule,
-        FormsModule,
-        BrowserAnimationsModule,
 
-        AppRoutingModule
-    ],
-    providers: [
-        { provide: DEFAULT_CURRENCY_CODE, useValue: 'EUR' },
-        { provide: LOCALE_ID, useValue: 'de' }
-    ],
-    bootstrap: [AppComponent]
+    SortByPipe,
+  ],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    FormsModule,
+    BrowserAnimationsModule,
+
+    AppRoutingModule
+  ],
+  providers: [
+    { provide: DEFAULT_CURRENCY_CODE, useValue: 'EUR' },
+    { provide: LOCALE_ID, useValue: 'de' }
+  ],
+  bootstrap: [AppComponent]
 })
 export class AppModule {
 }
