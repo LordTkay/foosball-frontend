@@ -10,6 +10,7 @@ import { GamesService } from "./games.service";
 export class GamesComponent {
 
   games = this.gamesService.games;
+  gameTrackBy = this.gamesService.gameTrackBy;
 
   constructor(private gamesService: GamesService) {
   }
