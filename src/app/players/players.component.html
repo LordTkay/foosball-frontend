@@ -1,5 +1,5 @@
 <div class="players">
-    <app-player *ngFor="let player of players(); trackBy: playerTrackBy"
+    <app-player *ngFor="let player of players() | sortBy : ['id'] : 'desc'; trackBy: playerTrackBy"
                 @appearanceAnimation
                 [player]="player"/>
     <app-new-player @appearanceAnimation/>
