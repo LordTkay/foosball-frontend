@@ -1,0 +1,21 @@
+@use "../../../../styles/abstract/variables" as v;
+
+.player-selection {
+  text-align: center;
+  display: flex;
+  gap: v.$spacing-1;
+  margin-bottom: v.$spacing-2;
+  background-color: hsl(var(--color-neutral) / 10%);
+
+
+  &-buttons {
+    display: contents;
+  }
+
+  &-name {
+    flex: 1;
+    display: inline-grid;
+    place-content: center;
+  }
+
+}

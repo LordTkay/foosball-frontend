@@ -1,0 +1,9 @@
+<button (click)="onClick()" [disabled]="onOtherTeam || disabled"
+        class="btn symbol"
+        type="button">
+
+    <div [ngClass]="position"
+         class="material-symbols-sharp">
+        {{position === 'attacker' ? 'swords' : 'shield'}}
+    </div>
+</button>

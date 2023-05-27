@@ -1,0 +1,34 @@
+<div *ngFor="let player of players() | sortBy : 'lastName'" class="player-selection">
+
+    <div class="player-selection-buttons yellow">
+        <app-player-selection-button [disabled]="disabled"
+                                     [player]="player"
+                                     [teams]="teams"
+                                     position="defender"
+                                     team="yellow"/>
+
+        <app-player-selection-button [disabled]="disabled"
+                                     [player]="player"
+                                     [teams]="teams"
+                                     position="attacker"
+                                     team="yellow"/>
+    </div>
+
+    <div class="player-selection-name">
+        {{player.firstName}} {{player.lastName}}
+    </div>
+
+    <div class="player-selection-buttons black">
+        <app-player-selection-button [disabled]="disabled"
+                                     [player]="player"
+                                     [teams]="teams"
+                                     position="defender"
+                                     team="black"/>
+
+        <app-player-selection-button [disabled]="disabled"
+                                     [player]="player"
+                                     [teams]="teams"
+                                     position="attacker"
+                                     team="black"/>
+    </div>
+</div>
