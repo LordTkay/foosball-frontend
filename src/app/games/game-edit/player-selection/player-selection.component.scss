@@ -3,19 +3,33 @@
 .player-selection {
   text-align: center;
   display: flex;
+  flex-direction: column;
   gap: v.$spacing-1;
   margin-bottom: v.$spacing-2;
   background-color: hsl(var(--color-neutral) / 10%);
 
-
-  &-buttons {
-    display: contents;
-  }
-
   &-name {
     flex: 1;
     display: inline-grid;
+    padding: v.$spacing-2 v.$spacing-2 0 v.$spacing-2;
     place-content: center;
   }
 
+  &-buttons {
+    display: flex;
+    gap: v.$spacing-1;
+    flex-direction: row;
+
+    &.black {
+      flex-direction: row-reverse;
+    }
+  }
+
+}
+
+.team-buttons {
+  display: flex;
+  gap: v.$spacing-1;
+  flex-direction: row;
+  justify-content: space-between;
 }
