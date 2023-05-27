@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, HostBinding, Input, WritableSignal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, HostBinding, Input, Output, WritableSignal } from '@angular/core';
 import { Team, TeamPositions, Teams } from '../../game/team.model';
 import { Player } from '../../../players/player/player.model';
 
@@ -14,6 +14,7 @@ export class PlayerSelectionButtonComponent {
   @Input() teams!: WritableSignal<Record<Teams, Partial<Team>>>;
   @Input() player!: Player;
   @Input() disabled = false;
+  @Output() click = new EventEmitter<void>();
 
   get onOtherTeam() {
     return Object.entries(this.teams()).some(([team, teamValue]) => {
@@ -27,6 +28,7 @@ export class PlayerSelectionButtonComponent {
   }
 
   onClick() {
+    this.click.emit();
     this.teams.mutate(teams => {
       teams[this.team][this.position] = !this.selected ? this.player : undefined;
     });

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, effect, Optional, Self, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, ElementRef, Optional, Self, signal } from '@angular/core';
 import { GamesService } from '../../games.service';
 import { PlayersService } from '../../../players/players.service';
 import { Team, TeamPositions, Teams } from '../../game/team.model';
@@ -14,11 +14,12 @@ export class PlayerSelectionComponent implements ControlValueAccessor, Validator
   disabled: boolean = false;
   teams = signal<Record<Teams, Partial<Team>>>({ black: {}, yellow: {} });
   players = this.playersService.players;
+  onTouched?: () => void;
   private onChange?: (value: any) => void;
-  private onTouched?: () => void;
 
   constructor(private gamesService: GamesService,
               private playersService: PlayersService,
+              private elementRef: ElementRef<HTMLElement>,
               @Optional() @Self() private ngControl?: NgControl) {
 
     if (this.ngControl) {
@@ -28,8 +29,9 @@ export class PlayerSelectionComponent implements ControlValueAccessor, Validator
 
     effect(() => {
       const teams = this.teams();
-      this.onTouched?.();
-      this.onChange?.(teams);
+      if (this.ngControl?.value !== teams) {
+        this.onChange?.(teams);
+      }
     });
   }
 
@@ -83,4 +85,7 @@ export class PlayerSelectionComponent implements ControlValueAccessor, Validator
   }
 
 
+  ngClasses() {
+    return Array.from(this.elementRef.nativeElement.classList).filter(cssClass => cssClass.startsWith('ng-'));
+  }
 }
