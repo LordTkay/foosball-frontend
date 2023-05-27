@@ -5,3 +5,33 @@
   margin-inline: auto;
   max-width: map-get(v.$breakpoints, 'md');
 }
+
+.btn {
+  display: grid;
+  place-content: center;
+  font-size: 1.25em;
+  font-weight: 800;
+  position: relative;
+  min-height: 3em;
+
+  &-add {
+    --background-color: var(--color-success);
+    padding: v.$spacing-1 v.$spacing-4;
+  }
+}
+
+.buttons {
+  position: sticky;
+  bottom: 0;
+  width: fit-content;
+  padding: v.$spacing-1;
+  display: flex;
+  justify-content: center;
+  gap: v.$spacing-1;
+  margin-inline: auto;
+
+  background: white;
+  @media (prefers-color-scheme: dark) {
+    background-color: var(--color-background-dark);
+  }
+}

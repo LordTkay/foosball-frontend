@@ -81,12 +81,12 @@ export class GameEditComponent implements OnInit {
     form.control.disable();
     this.loading = true;
 
-    let targetFunction = this.gamesService.addGame;
+    let targetFunction: keyof typeof this.gamesService = 'addGame';
     if (!this.newEntry) {
-      targetFunction = this.gamesService.editGame;
+      targetFunction = 'editGame';
     }
 
-    targetFunction(this.game as Game)
+    this.gamesService[targetFunction](this.game as Game)
       .pipe(finalize(() => {
         form.control.enable();
         this.loading = false;

@@ -16,17 +16,17 @@ form {
   font-size: 1.25em;
   font-weight: 800;
   position: relative;
+  min-height: 3em;
 
   &-add {
-    max-width: 10em;
-    width: 100%;
     --background-color: var(--color-success);
+    padding: v.$spacing-1 v.$spacing-4;
   }
 
   &-cancel {
     --background-color: var(--color-error);
     aspect-ratio: 1;
-    padding: 0.5em;
+    padding: v.$spacing-1 v.$spacing-1;
   }
 }
 

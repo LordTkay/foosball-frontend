@@ -1,1 +1,9 @@
 <app-game *ngFor="let game of games() | sortBy : 'playDate'; trackBy: gameTrackBy" [game]="game"/>
+
+
+<div class="buttons">
+    <a class="btn btn-add"
+       routerLink="new">
+        Add Game
+    </a>
+</div>
