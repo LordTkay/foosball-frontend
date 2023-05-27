@@ -10,12 +10,16 @@ export class SortByPipe implements PipeTransform {
       const valueA = a[attributName];
       const valueB = b[attributName];
 
-      if (!(valueA instanceof Date) || !(valueB instanceof Date)) {
-        throw new Error('SortByDate-Pipe can only be used with Date Attributes. Others types need to be added, if needed!');
+      if (valueA instanceof Date && valueB instanceof Date) {
+        return valueA.getTime() > valueB.getTime() ? -1 : 0;
       }
 
-      return valueA.getTime() > valueB.getTime() ? -1 : 0
-    })
+      if (typeof valueA === 'string' && typeof valueB === 'string') {
+        return valueA.localeCompare(valueB);
+      }
+
+      throw new Error('SortByDate-Pipe can only sort by Date or String. Others types need to be added, if needed!');
+    });
   }
 
 }
