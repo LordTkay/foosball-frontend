@@ -1,17 +1,28 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { SortAttribute, SortDirection } from './sort-by-date.model';
 
 @Pipe({
   name: 'sortBy'
 })
 export class SortByPipe implements PipeTransform {
 
-  transform<T extends unknown>(array: T[], attributNames: keyof T | (keyof T)[], direction: 'asc' | 'desc' = 'asc'): T[] {
+  transform<T extends unknown>(
+    array: T[],
+    attributNames: SortAttribute<T> | SortAttribute<T>[],
+    direction: SortDirection = 'asc'
+  ): T[] {
     return array.sort((a, b) => {
       const fields = Array.isArray(attributNames) ? attributNames : [attributNames];
 
       const directionFactor = direction === 'asc' ? 1 : -1;
 
       for (let field of fields) {
+        if (typeof field === 'function') {
+          const comparison = field(a, b, direction);
+          if (comparison !== 0) return comparison;
+          continue;
+        }
+
         const valueA = a[field];
         const valueB = b[field];
 
