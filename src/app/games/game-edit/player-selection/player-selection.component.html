@@ -1,6 +1,6 @@
 <fieldset [ngClass]="ngClasses()" class="fieldset validation">
     <legend>Teams</legend>
-    <div *ngFor="let player of players() | sortBy : ['lastName', 'firstName']" class="player-selection">
+    <div *ngFor="let player of players() | sortBy : [sortGames, 'lastName', 'firstName']" class="player-selection">
 
 
         <div class="player-selection-name">

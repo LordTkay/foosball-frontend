@@ -1,3 +1,5 @@
+import { Signal } from '@angular/core';
+
 export type Player = {
   readonly id: number,
   firstName: string,
@@ -5,4 +7,9 @@ export type Player = {
   email?: string
 }
 
+export type PlayerStats = Player & {
+  games: Signal<number>
+}
+
 export type Players = Player[]
+export type PlayersStats = PlayerStats[]

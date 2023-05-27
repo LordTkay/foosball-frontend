@@ -1,7 +1,9 @@
-import { ChangeDetectionStrategy, Component, HostBinding, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostBinding, Input, OnInit } from '@angular/core';
 import { Game } from '../game.model';
 import { Teams } from '../team.model';
 import { environment } from '../../../../environments/environment';
+import { PlayersService } from '../../../players/players.service';
+import { PlayerStats } from '../../../players/player/player.model';
 
 @Component({
   selector: 'app-team-overview[game][teamName]',
@@ -9,9 +11,14 @@ import { environment } from '../../../../environments/environment';
   styleUrls: ['./team-overview.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TeamOverviewComponent {
+export class TeamOverviewComponent implements OnInit {
   @Input() teamName!: Teams;
   @Input() game!: Game;
+  attacker!: PlayerStats;
+  defender!: PlayerStats;
+
+  constructor(private playersService: PlayersService) {
+  }
 
   @HostBinding('class.winner') get winner() {
     return this.game.winner === this.teamName;
@@ -38,5 +45,10 @@ export class TeamOverviewComponent {
 
   get team() {
     return this.game.teams[this.teamName];
+  }
+
+  ngOnInit() {
+    this.attacker = this.playersService.getPlayer(this.team.attacker)!;
+    this.defender = this.playersService.getPlayer(this.team.defender)!;
   }
 }

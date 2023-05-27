@@ -19,18 +19,18 @@ export class PlayerSelectionButtonComponent {
   get onOtherTeam() {
     return Object.entries(this.teams()).some(([team, teamValue]) => {
       if (team === this.team) return false;
-      return Object.values(teamValue).some(player => this.player.id === player?.id);
+      return Object.values(teamValue).some(player => this.player.id === player);
     });
   };
 
   @HostBinding('class.selected') get selected() {
-    return this.teams()[this.team][this.position]?.id === this.player.id;
+    return this.teams()[this.team][this.position] === this.player.id;
   }
 
   onClick() {
     this.click.emit();
     this.teams.mutate(teams => {
-      teams[this.team][this.position] = !this.selected ? this.player : undefined;
+      teams[this.team][this.position] = !this.selected ? this.player.id : undefined;
     });
   }
 }

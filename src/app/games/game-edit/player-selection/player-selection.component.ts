@@ -4,6 +4,8 @@ import { PlayersService } from '../../../players/players.service';
 import { Team, TeamPositions, Teams } from '../../game/team.model';
 import { AbstractControl, ControlValueAccessor, NgControl, ValidationErrors, Validator } from '@angular/forms';
 import { deepClone } from '../../../utility/deepCopy.function';
+import { PlayerStats } from '../../../players/player/player.model';
+import { SortDirection } from '../../../pipes/sort-by-date.model';
 
 @Component({
   selector: 'app-player-selection',
@@ -17,6 +19,10 @@ export class PlayerSelectionComponent implements ControlValueAccessor, Validator
   players = this.playersService.players;
   onTouched?: () => void;
   private onChange?: (value: any) => void;
+
+  sortGames(a: PlayerStats, b: PlayerStats, direction: SortDirection) {
+    return (a.games() - b.games()) * (direction === 'desc' ? 1 : -1);
+  };
 
   constructor(private gamesService: GamesService,
               private playersService: PlayersService,
