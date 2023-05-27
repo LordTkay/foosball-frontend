@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, effect, ElementRef, Optional, Self, signal } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, effect, ElementRef, Optional, Self, signal } from '@angular/core';
 import { GamesService } from '../../games.service';
 import { PlayersService } from '../../../players/players.service';
 import { Team, TeamPositions, Teams } from '../../game/team.model';
@@ -11,7 +11,7 @@ import { SortDirection } from '../../../pipes/sort-by-date.model';
   selector: 'app-player-selection',
   templateUrl: './player-selection.component.html',
   styleUrls: ['./player-selection.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.Default
 })
 export class PlayerSelectionComponent implements ControlValueAccessor, Validator {
   disabled: boolean = false;
@@ -20,18 +20,15 @@ export class PlayerSelectionComponent implements ControlValueAccessor, Validator
   onTouched?: () => void;
   private onChange?: (value: any) => void;
 
-  sortGames(a: PlayerStats, b: PlayerStats, direction: SortDirection) {
-    return (a.games() - b.games()) * (direction === 'desc' ? 1 : -1);
-  };
-
   constructor(private gamesService: GamesService,
               private playersService: PlayersService,
               private elementRef: ElementRef<HTMLElement>,
+              private changeDetectorRef: ChangeDetectorRef,
               @Optional() @Self() private ngControl?: NgControl) {
 
-    if (this.ngControl) {
+    if (this.ngControl?.control) {
       this.ngControl.valueAccessor = this;
-      this.ngControl.control?.addValidators(this.validate.bind(this));
+      this.ngControl.control.addValidators(this.validate.bind(this));
     }
 
     effect(() => {
@@ -41,6 +38,10 @@ export class PlayerSelectionComponent implements ControlValueAccessor, Validator
       }
     });
   }
+
+  sortGames(a: PlayerStats, b: PlayerStats, direction: SortDirection) {
+    return (a.games() - b.games()) * (direction === 'desc' ? 1 : -1);
+  };
 
   registerOnChange(fn: any): void {
     this.onChange = fn;
