@@ -15,12 +15,14 @@
                name="black"
                placeholder="Black Score"
                required
+               pattern="[0-9]+"
                type="number">
         <input [(ngModel)]="game.scores.yellow"
                class="glassy-element input-control"
                name="yellow"
                placeholder="Yellow Score"
                required
+               pattern="[0-9]+"
                type="number">
 
         <div [ngSwitch]="winner">
