@@ -27,8 +27,8 @@ export class SortByPipe implements PipeTransform {
         const valueB = b[field];
 
         if (valueA instanceof Date && valueB instanceof Date) {
-          if (valueA.getTime() > valueB.getTime()) return directionFactor;
-          if (valueA.getTime() < valueB.getTime()) return -directionFactor;
+          if (valueA.getTime() > valueB.getTime()) return -directionFactor;
+          if (valueA.getTime() < valueB.getTime()) return directionFactor;
 
         } else if (typeof valueA === 'string' && typeof valueB === 'string') {
           const compare = valueA.localeCompare(valueB);
