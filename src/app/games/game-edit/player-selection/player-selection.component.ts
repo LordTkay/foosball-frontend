@@ -72,16 +72,16 @@ export class PlayerSelectionComponent implements ControlValueAccessor, Validator
 
     const missingMembers: [Teams, TeamPositions][] = [];
 
-    if (!this.teams().yellow.defender) {
+    if (!this.teams().yellow.defender == null) {
       missingMembers.push(['yellow', 'defender']);
     }
-    if (!this.teams().yellow.attacker) {
+    if (!this.teams().yellow.attacker == null) {
       missingMembers.push(['yellow', 'attacker']);
     }
-    if (!this.teams().black.defender) {
+    if (!this.teams().black.defender == null) {
       missingMembers.push(['black', 'defender']);
     }
-    if (!this.teams().black.attacker) {
+    if (!this.teams().black.attacker == null) {
       missingMembers.push(['black', 'attacker']);
     }
 
