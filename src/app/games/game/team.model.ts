@@ -6,6 +6,6 @@ export const TEAMS = {
 } as const;
 export type Teams = typeof TEAMS[keyof typeof TEAMS]
 
-export type TeamPosition = 'attacker' | 'defender'
+export type TeamPositions = 'attacker' | 'defender'
 
-export type Team = Record<TeamPosition, Player>
+export type Team = Record<TeamPositions, Player>
