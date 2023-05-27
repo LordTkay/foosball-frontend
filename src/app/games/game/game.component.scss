@@ -5,14 +5,8 @@
   display: block;
 }
 
-fieldset {
-  border: 1px solid hsl(var(--color-neutral) / 50%);
+.fieldset {
   margin-bottom: v.$spacing-5;
-  padding: v.$spacing-2;
-}
-
-legend {
-  padding-inline: v.$spacing-2;
 }
 
 .versus-text {
