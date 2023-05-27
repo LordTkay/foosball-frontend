@@ -19,12 +19,12 @@ export class PlayerSelectionButtonComponent {
   get onOtherTeam() {
     return Object.entries(this.teams()).some(([team, teamValue]) => {
       if (team === this.team) return false;
-      return Object.values(teamValue).some(player => this.player === player);
+      return Object.values(teamValue).some(player => this.player.id === player?.id);
     });
   };
 
   @HostBinding('class.selected') get selected() {
-    return this.teams()[this.team][this.position] === this.player;
+    return this.teams()[this.team][this.position]?.id === this.player.id;
   }
 
   onClick() {
