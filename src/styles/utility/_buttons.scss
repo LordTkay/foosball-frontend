@@ -7,6 +7,8 @@
   --background-alpha-hover: 70%;
   --background-alpha-focus: 70%;
 
+  color: inherit;
+  text-decoration: none;
   cursor: pointer;
   border: none;
   padding: v.$spacing-1 v.$spacing-4;
