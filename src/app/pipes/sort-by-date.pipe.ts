@@ -29,18 +29,17 @@ export class SortByPipe implements PipeTransform {
         if (valueA instanceof Date && valueB instanceof Date) {
           if (valueA.getTime() > valueB.getTime()) return -directionFactor;
           if (valueA.getTime() < valueB.getTime()) return directionFactor;
-
         } else if (typeof valueA === 'string' && typeof valueB === 'string') {
           const compare = valueA.localeCompare(valueB);
           if (compare !== 0) return compare * directionFactor;
-
         } else if (typeof valueA === 'number' && typeof valueB === 'number') {
           if (valueA > valueB) return -directionFactor;
           if (valueA < valueB) return directionFactor;
+        } else {
+          throw new Error('SortByDate-Pipe can only sort by Date, Number or String. Others types need to be added, if needed!');
         }
       }
-
-      throw new Error('SortByDate-Pipe can only sort by Date or String. Others types need to be added, if needed!');
+      return 0;
     });
   }
 
