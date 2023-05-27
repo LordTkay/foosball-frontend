@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, Component, HostBinding, Input, OnInit } from '@angular/core';
-import { Game } from "../game.model";
-import { Teams } from "../team.model";
-import { environment } from "../../../../environments/environment";
+import { ChangeDetectionStrategy, Component, HostBinding, Input } from '@angular/core';
+import { Game } from '../game.model';
+import { Teams } from '../team.model';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-team-overview[game][teamName]',
@@ -9,63 +9,34 @@ import { environment } from "../../../../environments/environment";
   styleUrls: ['./team-overview.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TeamOverviewComponent implements OnInit {
-  @Input() teamName!: Teams
-  @HostBinding('class.winner') winner = false
-  @HostBinding('class.loser') loser = false
-  @HostBinding('class.draw') draw = false
-  @HostBinding('class.perfect-win') perfectWin = false
+export class TeamOverviewComponent {
+  @Input() teamName!: Teams;
+  @Input() game!: Game;
 
-  private _game!: Game;
-
-  get game(): Game {
-    return this._game;
+  @HostBinding('class.winner') get winner() {
+    return this.game.winner === this.teamName;
   }
 
-  @Input()
-  set game(value: Game) {
-    const initial = this._game == null
-    this._game = value
+  @HostBinding('class.loser') get loser() {
+    return this.game.winner !== this.teamName && this.game.winner !== 'draw';
+  }
 
-    if (!initial) {
-      this.setStylings();
-    }
+  @HostBinding('class.draw') get draw() {
+    return this.game.winner === 'draw';
+  }
+
+  @HostBinding('class.perfect-win') get perfectWin() {
+    return Object.entries(this.game.scores).reduce((perfectWin, [teamName, score]) => {
+      if (teamName !== this.teamName && score > 0) return false;
+      return perfectWin && !(teamName === this.teamName && score < environment.pointToWin);
+    }, true);
   }
 
   get score() {
-    return this._game.scores[this.teamName]
+    return this.game.scores[this.teamName];
   }
 
   get team() {
-    return this._game.teams[this.teamName]
-  }
-
-  ngOnInit() {
-    this.setStylings();
-  }
-
-  private setStylings() {
-    this.draw = false;
-    this.winner = false;
-    this.loser = false;
-    this.perfectWin = false;
-
-    switch (this._game.winner) {
-      case 'draw':
-        this.draw = true
-        break;
-      case this.teamName:
-        this.winner = true
-
-        this.perfectWin = Object.entries(this._game.scores).reduce((perfectWin, [teamName, score]) => {
-          if (teamName !== this.teamName && score > 0) return false
-          return perfectWin && !(teamName === this.teamName && score < environment.pointToWin);
-        }, true)
-
-        break;
-      default:
-        this.loser = true
-        break;
-    }
+    return this.game.teams[this.teamName];
   }
 }
