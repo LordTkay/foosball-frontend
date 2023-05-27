@@ -3,6 +3,7 @@ import { GamesService } from '../../games.service';
 import { PlayersService } from '../../../players/players.service';
 import { Team, TeamPositions, Teams } from '../../game/team.model';
 import { AbstractControl, ControlValueAccessor, NgControl, ValidationErrors, Validator } from '@angular/forms';
+import { deepClone } from '../../../utility/deepCopy.function';
 
 @Component({
   selector: 'app-player-selection',
@@ -29,8 +30,8 @@ export class PlayerSelectionComponent implements ControlValueAccessor, Validator
 
     effect(() => {
       const teams = this.teams();
-      if (this.ngControl?.value !== teams) {
-        this.onChange?.(teams);
+      if (JSON.stringify(this.ngControl?.value) !== JSON.stringify(teams)) {
+        this.onChange?.(deepClone(teams));
       }
     });
   }
@@ -49,7 +50,7 @@ export class PlayerSelectionComponent implements ControlValueAccessor, Validator
 
   writeValue(teams: Record<Teams, Partial<Team>> | null | undefined): void {
     if (teams != null) {
-      this.teams.set(teams);
+      this.teams.set(deepClone(teams));
     } else {
       this.teams.set({ black: {}, yellow: {} });
     }
