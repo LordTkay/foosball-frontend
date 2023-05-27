@@ -7,28 +7,6 @@
   position: relative;
 }
 
-input {
-  display: block;
-  width: 100%;
-
-  margin-bottom: v.$spacing-2;
-  padding: v.$spacing-1 v.$spacing-2;
-
-  border: none;
-  border-bottom: 2px solid hsl(var(--color-neutral) / 50%);
-
-  &.ng-dirty,
-  &.ng-touched {
-    &.ng-valid {
-      border-color: hsl(var(--color-success) / 50%);
-    }
-
-    &.ng-invalid {
-      border-color: hsl(var(--color-error) / 50%);
-    }
-  }
-}
-
 .btn-container {
   display: flex;
   justify-content: flex-end;
