@@ -5,7 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class SortByPipe implements PipeTransform {
 
-  transform<T extends unknown>(array: T[], attributName: keyof T): any[] {
+  transform<T extends unknown>(array: T[], attributName: keyof T): T[] {
     return array.sort((a, b) => {
       const valueA = a[attributName];
       const valueB = b[attributName];
