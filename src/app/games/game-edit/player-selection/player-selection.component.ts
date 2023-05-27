@@ -70,23 +70,23 @@ export class PlayerSelectionComponent implements ControlValueAccessor, Validator
   validate(control: AbstractControl): ValidationErrors | null {
     // ToDo Using ZOD to validate the teams, so that even on changing/additional teams or positions, the validation is still working
 
-    const missingMembers: [Teams, TeamPositions][] = [];
+    const missingMembers = new Map<Teams, TeamPositions>();
 
-    if (!this.teams().yellow.defender == null) {
-      missingMembers.push(['yellow', 'defender']);
+    if (this.teams().yellow.defender == null) {
+      missingMembers.set('yellow', 'defender');
     }
-    if (!this.teams().yellow.attacker == null) {
-      missingMembers.push(['yellow', 'attacker']);
+    if (this.teams().yellow.attacker == null) {
+      missingMembers.set('yellow', 'attacker');
     }
-    if (!this.teams().black.defender == null) {
-      missingMembers.push(['black', 'defender']);
+    if (this.teams().black.defender == null) {
+      missingMembers.set('black', 'defender');
     }
-    if (!this.teams().black.attacker == null) {
-      missingMembers.push(['black', 'attacker']);
+    if (this.teams().black.attacker == null) {
+      missingMembers.set('black', 'attacker');
     }
 
-    if (missingMembers.length > 0) {
-      return { missingMembers };
+    if (missingMembers.size > 0) {
+      return { missingMembers: Array.from(missingMembers.entries()) };
     }
 
     return null;
