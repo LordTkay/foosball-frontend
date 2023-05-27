@@ -1,0 +1,51 @@
+@use "../../../styles/abstract/variables" as v;
+
+:host {
+  position: relative;
+}
+
+form {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.btn {
+  display: block;
+  font-size: 1.25em;
+  font-weight: 800;
+  position: relative;
+
+  &-add {
+    max-width: 10em;
+    width: 100%;
+    --background-color: var(--color-success);
+  }
+
+  &-cancel {
+    --background-color: var(--color-error);
+    aspect-ratio: 1;
+    padding: 0.5em;
+  }
+}
+
+.buttons {
+  position: sticky;
+  bottom: 0;
+  width: fit-content;
+  padding: v.$spacing-1;
+  display: flex;
+  justify-content: center;
+  gap: v.$spacing-1;
+  margin-inline: auto;
+
+  background: white;
+  @media (prefers-color-scheme: dark) {
+    background-color: var(--color-background-dark);
+  }
+}
+
+.fill {
+  flex: 1;
+}

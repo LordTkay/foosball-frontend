@@ -1,1 +1,49 @@
-<p>game-edit works!</p>
+<form #form="ngForm" (ngSubmit)="onSubmit(form)">
+    <label for="datetime">Date and Time</label>
+    <input (ngModelChange)="onDateChange($event)"
+           [ngModel]="game.playDate | date:'yyyy-MM-ddTHH:mm:ss'"
+           class="glassy-element input-control"
+           id="datetime"
+           name="playDate"
+           placeholder="Date"
+           required
+           type="datetime-local">
+
+    <ng-container ngModelGroup="scores">
+        <input [(ngModel)]="game.scores.black"
+               class="glassy-element input-control"
+               name="black"
+               placeholder="Black Score"
+               required
+               type="number">
+        <input [(ngModel)]="game.scores.yellow"
+               class="glassy-element input-control"
+               name="yellow"
+               placeholder="Yellow Score"
+               required
+               type="number">
+
+        <div [ngSwitch]="winner">
+            <ng-container *ngSwitchCase="'black'">Black Won</ng-container>
+            <ng-container *ngSwitchCase="'yellow'">Yellow Won</ng-container>
+            <ng-container *ngSwitchCase="'draw'">No Winner</ng-container>
+        </div>
+
+    </ng-container>
+
+    <app-player-selection [(ngModel)]="game.teams"
+                          name="teams"
+                          required/>
+
+    <span class="fill"></span>
+    <div class="buttons">
+        <button (click)="onClose()" class="btn symbol btn-cancel symbol" type="button">
+            <span class="nav-link-icon material-symbols-sharp">close</span>
+        </button>
+        <button class="btn btn-add symbol" type="submit">
+            Add Game
+        </button>
+    </div>
+</form>
+
+<app-loading-spinner *ngIf="loading" class="loading-modal"/>
