@@ -42,7 +42,7 @@
         <button (click)="onClose()" class="btn symbol btn-cancel symbol" type="button">
             <span class="nav-link-icon material-symbols-sharp">close</span>
         </button>
-        <button class="btn btn-add symbol" type="submit">
+        <button [disabled]="!form.valid" class="btn btn-add symbol" type="submit">
             Add Game
         </button>
     </div>
