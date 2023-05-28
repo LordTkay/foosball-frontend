@@ -1,6 +1,6 @@
-import { CanActivateFn } from '@angular/router';
-import { GamesService } from './games.service';
-import { inject } from '@angular/core';
+import {CanActivateFn, Router} from '@angular/router';
+import {GamesService} from './games.service';
+import {inject} from '@angular/core';
 
 export const gameGuard: CanActivateFn = (route, state) => {
 
@@ -12,5 +12,10 @@ export const gameGuard: CanActivateFn = (route, state) => {
   }
 
   const game = gamesService.getGame(+currentId);
-  return game != null;
+  if (game == null) {
+    const router = inject(Router)
+    router.navigate(['/games']).then();
+    return false;
+  }
+  return true
 };
