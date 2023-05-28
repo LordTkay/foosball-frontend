@@ -1,8 +1,8 @@
-import {computed, Injectable, signal} from '@angular/core';
-import {Player, PlayersStats, PlayerStats} from './player/player.model';
-import {tap} from 'rxjs';
-import {GamesService} from '../games/games.service';
-import {BackendService} from '../services/backend.service';
+import { computed, Injectable, signal } from '@angular/core';
+import { Player, PlayersStats, PlayerStats } from './player/player.model';
+import { BehaviorSubject, tap } from 'rxjs';
+import { GamesService } from '../games/games.service';
+import { BackendService } from '../services/backend.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +11,7 @@ export class PlayersService {
 
   private playersMap = signal<Map<Player['id'], PlayerStats>>(new Map());
   players = computed<PlayersStats>(() => Array.from(this.playersMap().values()));
+  playersFetched = new BehaviorSubject<boolean>(false)
 
   // ToDo The counting should be done in the backend. The Signals can be used to manually count the games, when new are added, some are
   //  modified or deleted.
@@ -35,6 +36,7 @@ export class PlayersService {
 
   constructor(private gamesService: GamesService,
               private backendService: BackendService) {
+    this.fetchPlayers()
   }
 
   public getPlayer(id: Player['id']) {
@@ -82,17 +84,16 @@ export class PlayersService {
     return player.id;
   }
 
-  fetchPlayers() {
-    return this.backendService.getPlayers()
-      .pipe(
-        tap(players => {
+  private fetchPlayers() {
+    this.backendService.getPlayers()
+        .subscribe(players => {
           this.playersMap.set(new Map(players.map(player => {
             return [player.id, {
               ...player,
               games: computed(() => this.gamesPerPlayer().get(player.id) ?? 0)
             }];
           })));
+          this.playersFetched.next(true);
         })
-      );
   }
 }

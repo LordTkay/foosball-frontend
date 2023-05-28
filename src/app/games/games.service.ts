@@ -1,16 +1,18 @@
-import {computed, Injectable, signal} from '@angular/core';
-import {Game, Games} from './game/game.model';
-import {delay, of, take, tap} from 'rxjs';
+import { computed, Injectable, signal } from '@angular/core';
+import { Game, Games } from './game/game.model';
+import { BehaviorSubject, delay, of, take, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GamesService {
 
+  gamesFetched = new BehaviorSubject<boolean>(false)
   private gamesMap = signal<Map<Game['id'], Game>>(new Map())
   games = computed<Games>(() => Array.from(this.gamesMap().values()));
 
   constructor() {
+    this.fetchGames();
   }
 
   public getGame(id: Game['id']) {
@@ -58,9 +60,9 @@ export class GamesService {
     return game.id
   }
 
-  fetchGames() {
+  private fetchGames() {
     //ToDo Fetch Games from Backend
     this.gamesMap.set(new Map())
-    return of([] as Games)
+    this.gamesFetched.next(true)
   }
 }
