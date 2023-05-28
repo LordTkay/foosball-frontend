@@ -5,8 +5,6 @@
 export const environment = {
   production: false,
   pointToWin: 6,
-
-  usingBackend: true
 };
 
 /*

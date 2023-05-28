@@ -1,9 +1,8 @@
 import { computed, Injectable, signal } from '@angular/core';
 import { Player, PlayersStats, PlayerStats } from './player/player.model';
-import { environment } from '../../environments/environment';
-import { delay, of, take, tap } from 'rxjs';
-import { playersStub } from './player/player.stub';
+import { tap } from 'rxjs';
 import { GamesService } from '../games/games.service';
+import { BackendService } from '../services/backend.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +12,8 @@ export class PlayersService {
   private playersMap = signal<Map<Player['id'], PlayerStats>>(new Map());
   players = computed<PlayersStats>(() => Array.from(this.playersMap().values()));
 
+  // ToDo The counting should be done in the backend. The Signals can be used to manually count the games, when new are added, some are
+  //  modified or deleted.
   private gamesPerPlayer = computed(() => {
     const gamesPerPlayer = new Map<Player['id'], number>();
     this.gamesService.games().forEach(game => {
@@ -32,7 +33,8 @@ export class PlayersService {
     return gamesPerPlayer;
   });
 
-  constructor(private gamesService: GamesService) {
+  constructor(private gamesService: GamesService,
+              private backendService: BackendService) {
     this.fetchPlayers();
   }
 
@@ -41,24 +43,18 @@ export class PlayersService {
   }
 
   public addPlayer(player: Omit<Player, 'id'>) {
-    const id = (Array.from(this.playersMap().keys()).sort((a, b) => a - b).at(-1) ?? 0) + 1;
-
-    return of({ ...player, id })
-      .pipe(
-        take(1),
-        delay(2000),
-        tap(addedPlayer => {
-          const addedPlayerStats = { ...addedPlayer, games: computed(() => this.gamesPerPlayer().get(addedPlayer.id) ?? 0) };
-          this.playersMap.mutate(playersMap => playersMap.set(addedPlayer.id, addedPlayerStats));
-        })
-      );
+    return this.backendService.addPlayer(player)
+      .pipe(tap(addedPlayer => {
+        this.playersMap.mutate(playersMap => {
+          const addedPlayerStat = { ...addedPlayer, games: computed(() => this.gamesPerPlayer().get(addedPlayer.id) ?? 0) };
+          playersMap.set(addedPlayer.id, addedPlayerStat);
+        });
+      }));
   }
 
   public deletePlayer(id: Player['id']) {
-    return of(id)
+    return this.backendService.deletePlayer(id)
       .pipe(
-        take(1),
-        delay(2000),
         tap(deletedId => {
           this.playersMap.mutate(playersMap => {
             playersMap.delete(deletedId);
@@ -68,10 +64,8 @@ export class PlayersService {
   }
 
   public editPlayer(player: Player) {
-    return of(player)
+    return this.backendService.editPlayer(player)
       .pipe(
-        take(1),
-        delay(2000),
         tap(updatedPlayer => {
           const updatedPlayerStat = { ...updatedPlayer, games: computed(() => this.gamesPerPlayer().get(player.id) ?? 0) };
           this.playersMap.mutate(playersMap => playersMap.set(updatedPlayer.id, updatedPlayerStat));
@@ -84,13 +78,11 @@ export class PlayersService {
   }
 
   private fetchPlayers() {
-    if (environment.production) {
-      //ToDo Fetch Players from Backend
-    } else {
-      this.playersMap.set(new Map(Array.from(playersStub.values()).map(player => [player.id, {
+    this.backendService.getPlayers().subscribe(players => {
+      this.playersMap.set(new Map(players.map(player => [player.id, {
         ...player,
         games: computed(() => this.gamesPerPlayer().get(player.id) ?? 0)
       }])));
-    }
+    });
   }
 }

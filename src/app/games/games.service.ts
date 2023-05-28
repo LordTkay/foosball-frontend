@@ -1,8 +1,6 @@
-import { computed, Injectable, signal } from '@angular/core';
-import { Game, Games } from './game/game.model';
-import { environment } from '../../environments/environment';
-import { gamesStub } from './games.stub';
-import { delay, of, take, tap } from 'rxjs';
+import {computed, Injectable, signal} from '@angular/core';
+import {Game, Games} from './game/game.model';
+import {delay, of, take, tap} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +21,7 @@ export class GamesService {
   public addGame(game: Omit<Game, 'id'>) {
     const id = (Array.from(this.gamesMap().keys()).sort((a, b) => a - b).at(-1) ?? 0) + 1;
 
-    return of({ ...game, id })
+    return of({...game, id})
       .pipe(
         take(1),
         delay(2000),
@@ -62,10 +60,7 @@ export class GamesService {
   }
 
   private fetchGames() {
-    if (environment.production) {
-      //ToDo Fetch Games from Backend
-    } else {
-      this.gamesMap.set(gamesStub)
-    }
+    //ToDo Fetch Games from Backend
+    this.gamesMap.set(new Map())
   }
 }
