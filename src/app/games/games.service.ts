@@ -11,7 +11,6 @@ export class GamesService {
   games = computed<Games>(() => Array.from(this.gamesMap().values()));
 
   constructor() {
-    this.fetchGames()
   }
 
   public getGame(id: Game['id']) {
@@ -59,8 +58,9 @@ export class GamesService {
     return game.id
   }
 
-  private fetchGames() {
+  fetchGames() {
     //ToDo Fetch Games from Backend
     this.gamesMap.set(new Map())
+    return of([] as Games)
   }
 }

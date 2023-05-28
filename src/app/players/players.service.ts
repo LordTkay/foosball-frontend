@@ -1,8 +1,8 @@
-import { computed, Injectable, signal } from '@angular/core';
-import { Player, PlayersStats, PlayerStats } from './player/player.model';
-import { tap } from 'rxjs';
-import { GamesService } from '../games/games.service';
-import { BackendService } from '../services/backend.service';
+import {computed, Injectable, signal} from '@angular/core';
+import {Player, PlayersStats, PlayerStats} from './player/player.model';
+import {tap} from 'rxjs';
+import {GamesService} from '../games/games.service';
+import {BackendService} from '../services/backend.service';
 
 @Injectable({
   providedIn: 'root'
@@ -35,7 +35,6 @@ export class PlayersService {
 
   constructor(private gamesService: GamesService,
               private backendService: BackendService) {
-    this.fetchPlayers();
   }
 
   public getPlayer(id: Player['id']) {
@@ -46,7 +45,10 @@ export class PlayersService {
     return this.backendService.addPlayer(player)
       .pipe(tap(addedPlayer => {
         this.playersMap.mutate(playersMap => {
-          const addedPlayerStat = { ...addedPlayer, games: computed(() => this.gamesPerPlayer().get(addedPlayer.id) ?? 0) };
+          const addedPlayerStat = {
+            ...addedPlayer,
+            games: computed(() => this.gamesPerPlayer().get(addedPlayer.id) ?? 0)
+          };
           playersMap.set(addedPlayer.id, addedPlayerStat);
         });
       }));
@@ -67,7 +69,10 @@ export class PlayersService {
     return this.backendService.editPlayer(player)
       .pipe(
         tap(updatedPlayer => {
-          const updatedPlayerStat = { ...updatedPlayer, games: computed(() => this.gamesPerPlayer().get(player.id) ?? 0) };
+          const updatedPlayerStat = {
+            ...updatedPlayer,
+            games: computed(() => this.gamesPerPlayer().get(player.id) ?? 0)
+          };
           this.playersMap.mutate(playersMap => playersMap.set(updatedPlayer.id, updatedPlayerStat));
         })
       );
@@ -77,12 +82,17 @@ export class PlayersService {
     return player.id;
   }
 
-  private fetchPlayers() {
-    this.backendService.getPlayers().subscribe(players => {
-      this.playersMap.set(new Map(players.map(player => [player.id, {
-        ...player,
-        games: computed(() => this.gamesPerPlayer().get(player.id) ?? 0)
-      }])));
-    });
+  fetchPlayers() {
+    return this.backendService.getPlayers()
+      .pipe(
+        tap(players => {
+          this.playersMap.set(new Map(players.map(player => {
+            return [player.id, {
+              ...player,
+              games: computed(() => this.gamesPerPlayer().get(player.id) ?? 0)
+            }];
+          })));
+        })
+      );
   }
 }
