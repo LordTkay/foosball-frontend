@@ -1,6 +1,6 @@
+<!-- ToDo Insert an Animation when a player enters or leaves -->
 <div class="players">
     <app-player *ngFor="let player of players() | sortBy : ['id'] : 'desc'; trackBy: playerTrackBy"
-                @appearanceAnimation
                 [player]="player"/>
-    <app-new-player @appearanceAnimation/>
+    <app-new-player/>
 </div>

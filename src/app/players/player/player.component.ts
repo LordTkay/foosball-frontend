@@ -66,7 +66,7 @@ export class PlayerComponent implements OnInit {
   onDelete() {
     this.loading = true;
     this.playersService.deletePlayer(this._player.id)
-      .subscribe(() => this.loading = false);
+        .subscribe(() => this.loading = false);
   }
 
   onEscape(event: Event) {
@@ -74,5 +74,9 @@ export class PlayerComponent implements OnInit {
 
     target.blur()
     this.resetForm();
+  }
+
+  onEnter() {
+    this.playerForm.control.markAllAsTouched();
   }
 }

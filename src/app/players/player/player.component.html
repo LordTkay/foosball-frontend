@@ -1,5 +1,6 @@
 <form #form="ngForm"
       (keydown.escape)="onEscape($event)"
+      (keydown.enter)="onEnter()"
       (ngSubmit)="onSave()"
       [class.new-player]="newPlayer"
       class="">
