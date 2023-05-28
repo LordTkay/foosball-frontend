@@ -1,12 +1,12 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { GamesService } from '../games.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Game } from '../game/game.model';
-import { PlayersService } from '../../players/players.service';
-import { Player } from '../../players/player/player.model';
-import { TeamPositions, Teams } from '../game/team.model';
-import { NgForm } from '@angular/forms';
-import { finalize } from 'rxjs';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {GamesService} from '../games.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Game} from '../game/game.model';
+import {PlayersService} from '../../players/players.service';
+import {Player} from '../../players/player/player.model';
+import {TeamPositions, Teams} from '../game/team.model';
+import {NgForm} from '@angular/forms';
+import {finalize} from 'rxjs';
 
 @Component({
   selector: 'app-game-edit',
@@ -15,7 +15,7 @@ import { finalize } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GameEditComponent implements OnInit {
-  game!: Omit<Game, 'teams' | 'scores'> & {
+  game!: Omit<Game, 'teams' | 'scores' | 'winner' | 'perfectWin' | 'creationDate' | 'updateDate'> & {
     teams: Record<Teams, Partial<Record<TeamPositions, Player['id']>>>,
     scores: Record<Teams, number | null>
   };
@@ -62,8 +62,7 @@ export class GameEditComponent implements OnInit {
         teams: {
           black: {},
           yellow: {}
-        },
-        winner: 'draw'
+        }
       };
     }
   }
@@ -75,8 +74,6 @@ export class GameEditComponent implements OnInit {
   onSubmit(form: NgForm) {
     form.control.markAllAsTouched();
     if (!form.valid) return;
-
-    this.game.winner = this.winner;
 
     form.control.disable();
     this.loading = true;
