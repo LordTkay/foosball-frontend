@@ -1,9 +1,9 @@
-import { ChangeDetectionStrategy, Component, HostBinding, Input, OnInit } from '@angular/core';
-import { Game } from '../game.model';
-import { Teams } from '../team.model';
-import { environment } from '../../../../environments/environment';
-import { PlayersService } from '../../../players/players.service';
-import { PlayerStats } from '../../../players/player/player.model';
+import {ChangeDetectionStrategy, Component, HostBinding, Input, OnInit} from '@angular/core';
+import {Game} from '../game.model';
+import {Teams} from '../team.model';
+import {environment} from '../../../../environments/environment';
+import {PlayersService} from '../../../players/players.service';
+import {Player} from "../../../players/player/player.model";
 
 @Component({
   selector: 'app-team-overview[game][teamName]',
@@ -14,8 +14,8 @@ import { PlayerStats } from '../../../players/player/player.model';
 export class TeamOverviewComponent implements OnInit {
   @Input() teamName!: Teams;
   @Input() game!: Game;
-  attacker!: PlayerStats;
-  defender!: PlayerStats;
+  attacker!: Player;
+  defender!: Player;
 
   constructor(private playersService: PlayersService) {
   }

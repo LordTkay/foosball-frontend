@@ -16,7 +16,7 @@ export class BackendService {
         return this.httpClient.get<Players>('api/players');
     }
 
-    addPlayer(player: Omit<Player, 'id'>) {
+    addPlayer(player: Omit<Player, 'id' | 'playedGames' | 'creationDate' | 'updateDate'>) {
         return this.httpClient.put<Player>('api/player', player);
     }
 
@@ -24,7 +24,7 @@ export class BackendService {
         return this.httpClient.delete<Player['id']>(`api/player/${id}`);
     }
 
-    editPlayer(player: Player) {
+    editPlayer(player: Omit<Player, 'playedGames' | 'creationDate' | 'updateDate'>) {
         return this.httpClient.patch<Player>(`api/player/${player.id}`, player);
     }
 

@@ -1,11 +1,20 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, effect, ElementRef, Optional, Self, signal } from '@angular/core';
-import { GamesService } from '../../games.service';
-import { PlayersService } from '../../../players/players.service';
-import { Team, TeamPositions, Teams } from '../../game/team.model';
-import { AbstractControl, ControlValueAccessor, NgControl, ValidationErrors, Validator } from '@angular/forms';
-import { deepClone } from '../../../utility/deepCopy.function';
-import { PlayerStats } from '../../../players/player/player.model';
-import { SortDirection } from '../../../pipes/sort-by-date.model';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  effect,
+  ElementRef,
+  Optional,
+  Self,
+  signal
+} from '@angular/core';
+import {GamesService} from '../../games.service';
+import {PlayersService} from '../../../players/players.service';
+import {Team, TeamPositions, Teams} from '../../game/team.model';
+import {AbstractControl, ControlValueAccessor, NgControl, ValidationErrors, Validator} from '@angular/forms';
+import {deepClone} from '../../../utility/deepCopy.function';
+import {SortDirection} from '../../../pipes/sort-by-date.model';
+import {Player} from "../../../players/player/player.model";
 
 @Component({
   selector: 'app-player-selection',
@@ -39,8 +48,8 @@ export class PlayerSelectionComponent implements ControlValueAccessor, Validator
     });
   }
 
-  sortGames(a: PlayerStats, b: PlayerStats, direction: SortDirection) {
-    return (a.games() - b.games()) * (direction === 'desc' ? 1 : -1);
+  sortGames(a: Player, b: Player, direction: SortDirection) {
+    return (a.playedGames - b.playedGames) * (direction === 'desc' ? 1 : -1);
   };
 
   registerOnChange(fn: any): void {

@@ -1,60 +1,35 @@
-import { computed, Injectable, signal } from '@angular/core';
-import { Player, PlayersStats, PlayerStats } from './player/player.model';
-import { BehaviorSubject, tap } from 'rxjs';
-import { GamesService } from '../games/games.service';
-import { BackendService } from '../services/backend.service';
+import {computed, Injectable, signal} from '@angular/core';
+import {Player, Players} from './player/player.model';
+import {BehaviorSubject, tap} from 'rxjs';
+import {GamesService} from '../games/games.service';
+import {BackendService} from '../services/backend.service';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class PlayersService {
 
-  private playersMap = signal<Map<Player['id'], PlayerStats>>(new Map());
-  players = computed<PlayersStats>(() => Array.from(this.playersMap().values()));
-  playersFetched = new BehaviorSubject<boolean>(false)
+    playersFetched = new BehaviorSubject<boolean>(false)
+    private playersMap = signal<Map<Player['id'], Player>>(new Map());
+    players = computed<Players>(() => Array.from(this.playersMap().values()));
 
-  // ToDo The counting should be done in the backend. The Signals can be used to manually count the games, when new are added, some are
-  //  modified or deleted.
-  private gamesPerPlayer = computed(() => {
-    const gamesPerPlayer = new Map<Player['id'], number>();
-    this.gamesService.games().forEach(game => {
-      // To check if the player was already counted for this match, for example when the player is in both positions
-      const playerCountedGame = new Set<Player['id']>();
+    constructor(private gamesService: GamesService,
+                private backendService: BackendService) {
+        this.fetchPlayers()
+    }
 
-      Object.values(game.teams).forEach(team => {
-        Object.values(team).forEach(playerId => {
-          if (playerCountedGame.has(playerId)) return;
+    public getPlayer(id: Player['id']) {
+        return this.playersMap().get(id);
+    }
 
-          const gamesOfPlayer = gamesPerPlayer.get(playerId);
-          gamesPerPlayer.set(playerId, (gamesOfPlayer ?? 0) + 1);
-          playerCountedGame.add(playerId);
-        });
-      });
-    });
-    return gamesPerPlayer;
-  });
-
-  constructor(private gamesService: GamesService,
-              private backendService: BackendService) {
-    this.fetchPlayers()
-  }
-
-  public getPlayer(id: Player['id']) {
-    return this.playersMap().get(id);
-  }
-
-  public addPlayer(player: Omit<Player, 'id'>) {
-    return this.backendService.addPlayer(player)
-      .pipe(tap(addedPlayer => {
-        this.playersMap.mutate(playersMap => {
-          const addedPlayerStat = {
-            ...addedPlayer,
-            games: computed(() => this.gamesPerPlayer().get(addedPlayer.id) ?? 0)
-          };
-          playersMap.set(addedPlayer.id, addedPlayerStat);
-        });
-      }));
-  }
+    public addPlayer(player: Omit<Player, 'id' | 'playedGames' | 'creationDate' | 'updateDate'>) {
+        return this.backendService.addPlayer(player)
+            .pipe(tap(addedPlayer => {
+                this.playersMap.mutate(playersMap => {
+                    playersMap.set(addedPlayer.id, addedPlayer);
+                });
+            }));
+    }
 
   public deletePlayer(id: Player['id']) {
     return this.backendService.deletePlayer(id)
@@ -67,18 +42,14 @@ export class PlayersService {
       );
   }
 
-  public editPlayer(player: Player) {
-    return this.backendService.editPlayer(player)
-      .pipe(
-        tap(updatedPlayer => {
-          const updatedPlayerStat = {
-            ...updatedPlayer,
-            games: computed(() => this.gamesPerPlayer().get(player.id) ?? 0)
-          };
-          this.playersMap.mutate(playersMap => playersMap.set(updatedPlayer.id, updatedPlayerStat));
-        })
-      );
-  }
+    public editPlayer(player: Omit<Player, 'playedGames' | 'creationDate' | 'updateDate'>) {
+        return this.backendService.editPlayer(player)
+            .pipe(
+                tap(updatedPlayer => {
+                    this.playersMap.mutate(playersMap => playersMap.set(updatedPlayer.id, updatedPlayer));
+                })
+            );
+    }
 
   public playerTrackBy(index: number, player: Player) {
     return player.id;
@@ -87,13 +58,8 @@ export class PlayersService {
   private fetchPlayers() {
     this.backendService.getPlayers()
         .subscribe(players => {
-          this.playersMap.set(new Map(players.map(player => {
-            return [player.id, {
-              ...player,
-              games: computed(() => this.gamesPerPlayer().get(player.id) ?? 0)
-            }];
-          })));
-          this.playersFetched.next(true);
+            this.playersMap.set(new Map(players.map(player => [player.id, player])));
+            this.playersFetched.next(true);
         })
   }
 }
