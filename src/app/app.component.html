@@ -1,11 +1,3 @@
 <app-loading-spinner *ngIf="loading" class="loading-modal"/>
 
-<ng-container *ngIf="!loading">
-  <app-header></app-header>
-
-  <app-navigation></app-navigation>
-
-  <main>
-    <router-outlet></router-outlet>
-  </main>
-</ng-container>
+<router-outlet *ngIf="!loading"/>

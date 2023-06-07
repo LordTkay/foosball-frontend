@@ -1,0 +1,10 @@
+<div class="error">
+    <h1 class="error-title">{{statusCode}}</h1>
+
+    <p [ngSwitch]="statusCode" class="error-description">
+        <ng-container *ngSwitchCase="404">Seite konnte nicht gefunden werden!</ng-container>
+        <ng-container *ngSwitchCase="504">Verbindung zu dem Server konnte nicht hergestellt werden!</ng-container>
+        <ng-container *ngSwitchDefault>Ein unerwarteter Fehler ist aufgetreten!</ng-container>
+    </p>
+
+</div>

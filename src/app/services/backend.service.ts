@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Player, Players} from '../players/player/player.model';
-import {Game, Games, Winner} from "../games/game/game.model";
-import {map} from "rxjs";
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Player, Players } from '../players/player/player.model';
+import { Game, Games, Winner } from "../games/game/game.model";
+import { map } from "rxjs";
 
 @Injectable({
     providedIn: 'root'
@@ -35,7 +35,7 @@ export class BackendService {
     }
 
     addGame(game: Omit<Game, 'id' | 'winner'>) {
-        return this.httpClient.put<Game>('api/game', game).pipe(
+        return this.httpClient.put<Game>('localhost:8080/api/game', game).pipe(
             map(this.correctGames)
         )
     }

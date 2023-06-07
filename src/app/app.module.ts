@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { registerLocaleData } from '@angular/common';
 import localeDe from '@angular/common/locales/de';
 import { HeaderComponent } from './components/header/header.component';
@@ -21,6 +21,9 @@ import { SortByPipe } from './pipes/sort-by-date.pipe';
 import { GameEditComponent } from './games/game-edit/game-edit.component';
 import { PlayerSelectionComponent } from './games/game-edit/player-selection/player-selection.component';
 import { PlayerSelectionButtonComponent } from './games/game-edit/player-selection/player-selection-button.component';
+import { HttpErrorComponent } from './components/http-error/http-error.component';
+import { FoosballComponent } from './foosball/foosball.component';
+import { BackendInterceptor } from "./services/backend.interceptor";
 
 registerLocaleData(localeDe);
 
@@ -42,6 +45,8 @@ registerLocaleData(localeDe);
     GameEditComponent,
     PlayerSelectionComponent,
     PlayerSelectionButtonComponent,
+    HttpErrorComponent,
+    FoosballComponent,
   ],
   imports: [
     BrowserModule,
@@ -53,7 +58,8 @@ registerLocaleData(localeDe);
   ],
   providers: [
     { provide: DEFAULT_CURRENCY_CODE, useValue: 'EUR' },
-    { provide: LOCALE_ID, useValue: 'de' }
+    { provide: LOCALE_ID, useValue: 'de' },
+    { provide: HTTP_INTERCEPTORS, useClass: BackendInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
 })

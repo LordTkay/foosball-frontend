@@ -1,8 +1,10 @@
-import {computed, Injectable, signal} from '@angular/core';
-import {Player, Players} from './player/player.model';
-import {BehaviorSubject, tap} from 'rxjs';
-import {GamesService} from '../games/games.service';
-import {BackendService} from '../services/backend.service';
+import { computed, Injectable, signal } from '@angular/core';
+import { Player, Players } from './player/player.model';
+import { BehaviorSubject, tap } from 'rxjs';
+import { GamesService } from '../games/games.service';
+import { BackendService } from '../services/backend.service';
+import { Router } from "@angular/router";
+import { HttpErrorResponse } from "@angular/common/http";
 
 @Injectable({
     providedIn: 'root'
@@ -14,7 +16,8 @@ export class PlayersService {
     players = computed<Players>(() => Array.from(this.playersMap().values()));
 
     constructor(private gamesService: GamesService,
-                private backendService: BackendService) {
+                private backendService: BackendService,
+                private router: Router) {
         this.fetchPlayers()
     }
 
@@ -31,16 +34,16 @@ export class PlayersService {
             }));
     }
 
-  public deletePlayer(id: Player['id']) {
-    return this.backendService.deletePlayer(id)
-      .pipe(
-        tap(deletedId => {
-          this.playersMap.mutate(playersMap => {
-            playersMap.delete(deletedId);
-          });
-        })
-      );
-  }
+    public deletePlayer(id: Player['id']) {
+        return this.backendService.deletePlayer(id)
+            .pipe(
+                tap(deletedId => {
+                    this.playersMap.mutate(playersMap => {
+                        playersMap.delete(deletedId);
+                    });
+                })
+            );
+    }
 
     public editPlayer(player: Omit<Player, 'playedGames' | 'creationDate' | 'updateDate'>) {
         return this.backendService.editPlayer(player)
@@ -51,15 +54,23 @@ export class PlayersService {
             );
     }
 
-  public playerTrackBy(index: number, player: Player) {
-    return player.id;
-  }
+    public playerTrackBy(index: number, player: Player) {
+        return player.id;
+    }
 
-  private fetchPlayers() {
-    this.backendService.getPlayers()
-        .subscribe(players => {
-            this.playersMap.set(new Map(players.map(player => [player.id, player])));
-            this.playersFetched.next(true);
-        })
-  }
+    private fetchPlayers() {
+        this.backendService.getPlayers()
+            .subscribe({
+                next: players => {
+                    this.playersMap.set(new Map(players.map(player => [player.id, player])));
+                    this.playersFetched.next(true);
+                },
+                error: error => {
+                    if (!(error instanceof HttpErrorResponse)) return
+                    this.router.navigate(['/http-http-error', error.status], {
+                        skipLocationChange: true
+                    }).then();
+                }
+            })
+    }
 }

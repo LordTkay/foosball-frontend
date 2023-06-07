@@ -2,6 +2,8 @@ import { computed, Injectable, signal } from '@angular/core';
 import { Game, Games } from './game/game.model';
 import { BehaviorSubject, delay, of, take, tap } from 'rxjs';
 import { BackendService } from "../services/backend.service";
+import { HttpErrorResponse } from "@angular/common/http";
+import { Router } from "@angular/router";
 
 @Injectable({
     providedIn: 'root'
@@ -12,7 +14,8 @@ export class GamesService {
     private gamesMap = signal<Map<Game['id'], Game>>(new Map())
     games = computed<Games>(() => Array.from(this.gamesMap().values()));
 
-    constructor(private backendService: BackendService) {
+    constructor(private backendService: BackendService,
+                private router: Router) {
         this.fetchGames();
     }
 
@@ -57,10 +60,17 @@ export class GamesService {
     }
 
     private fetchGames() {
-        //ToDo Fetch Games from Backend
-        this.backendService.getGames().subscribe(games => {
-            this.gamesMap.set(new Map(games.map(game => [game.id, game])))
-            this.gamesFetched.next(true)
+        this.backendService.getGames().subscribe({
+            next: games => {
+                this.gamesMap.set(new Map(games.map(game => [game.id, game])))
+                this.gamesFetched.next(true)
+            },
+            error: error => {
+                if (!(error instanceof HttpErrorResponse)) return
+                this.router.navigate(['/http-http-error', error.status], {
+                    skipLocationChange: true
+                }).then();
+            }
         })
     }
 }
