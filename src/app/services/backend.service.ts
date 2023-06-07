@@ -13,23 +13,23 @@ export class BackendService {
     }
 
     getPlayers() {
-        return this.httpClient.get<Players>('api/players');
+        return this.httpClient.get<Players>('localhost:8080/api/players');
     }
 
     addPlayer(player: Omit<Player, 'id' | 'playedGames' | 'creationDate' | 'updateDate'>) {
-        return this.httpClient.put<Player>('api/player', player);
+        return this.httpClient.put<Player>('localhost:8080/api/player', player);
     }
 
     deletePlayer(id: Player['id']) {
-        return this.httpClient.delete<Player['id']>(`api/player/${id}`);
+        return this.httpClient.delete<Player['id']>(`localhost:8080/api/player/${id}`);
     }
 
     editPlayer(player: Omit<Player, 'playedGames' | 'creationDate' | 'updateDate'>) {
-        return this.httpClient.patch<Player>(`api/player/${player.id}`, player);
+        return this.httpClient.patch<Player>(`localhost:8080/api/player/${player.id}`, player);
     }
 
     getGames() {
-        return this.httpClient.get<Games>('api/games').pipe(
+        return this.httpClient.get<Games>('localhost:8080/api/games').pipe(
             map(this.correctGames)
         )
     }
