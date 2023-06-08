@@ -24,6 +24,6 @@ jobs:
     - name: Install dependencies
       run: npm install
     - name: Build Angular app
-      run: ng build
+      run: npm run build
     - name: Build Docker image
       run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
