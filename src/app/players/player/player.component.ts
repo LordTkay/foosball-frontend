@@ -1,8 +1,9 @@
-import {ChangeDetectionStrategy, Component, Input, OnInit, ViewChild} from '@angular/core';
-import {Player} from "./player.model";
-import {PlayersService} from "../players.service";
-import {deepClone} from "../../utility/deepCopy.function";
-import {NgForm} from "@angular/forms";
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Player } from "./player.model";
+import { PlayersService } from "../players.service";
+import { deepClone } from "../../utility/deepCopy.function";
+import { NgForm } from "@angular/forms";
+import { finalize } from "rxjs";
 
 @Component({
     selector: 'app-player[player], app-new-player',
@@ -17,7 +18,8 @@ export class PlayerComponent implements OnInit {
     playerState!: Omit<Player, 'playedGames' | 'creationDate' | 'updateDate'>
     newPlayer = false
 
-    constructor(private playersService: PlayersService) {
+    constructor(private playersService: PlayersService,
+                private changeDetectorRef: ChangeDetectorRef) {
     }
 
     _player!: Omit<Player, 'playedGames' | 'creationDate' | 'updateDate'>
@@ -48,13 +50,20 @@ export class PlayerComponent implements OnInit {
         this.loading = true;
         if (this.newPlayer) {
             this.playersService.addPlayer(this._player)
+                .pipe(finalize(() => {
+                    this.loading = false
+                    this.changeDetectorRef.markForCheck();
+                }))
                 .subscribe(() => {
-                    this.loading = false;
                     this.resetForm();
                 });
         } else {
             this.playersService.editPlayer(this._player)
-                .subscribe(() => this.loading = false);
+                .pipe(finalize(() => {
+                    this.loading = false
+                    this.changeDetectorRef.markForCheck();
+                }))
+                .subscribe();
         }
     }
 
