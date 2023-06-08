@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   pointToWin: 6,
 
-  backendPort: '4200',
+  backendPort: '8080',
 };
 
 /*
