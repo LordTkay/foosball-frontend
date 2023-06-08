@@ -10,7 +10,10 @@ export class BackendInterceptor implements HttpInterceptor {
 
     intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
 
-        return next.handle(request).pipe(
+        const modifiedRequest = request.clone();
+        modifiedRequest.headers.set('Access-Control-Allow-Origin', '*');
+
+        return next.handle(modifiedRequest).pipe(
             retry({ count: 3, delay: 2000 })
         );
     }
