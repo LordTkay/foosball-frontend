@@ -10,33 +10,36 @@ import { environment } from "../../environments/environment";
 })
 export class BackendService {
 
+    private url: string;
+
     constructor(private httpClient: HttpClient) {
+        this.url = `http://${location.host.split(':')[0]}:${environment.backendPort}/api`;
     }
 
     getPlayers() {
-        return this.httpClient.get<Players>(`${environment.backendUrl}/players`);
+        return this.httpClient.get<Players>(`${this.url}/players`);
     }
 
     addPlayer(player: Omit<Player, 'id' | 'playedGames' | 'creationDate' | 'updateDate'>) {
-        return this.httpClient.put<Player>(`${environment.backendUrl}/player`, player);
+        return this.httpClient.put<Player>(`${this.url}/player`, player);
     }
 
     deletePlayer(id: Player['id']) {
-        return this.httpClient.delete<Player['id']>(`${environment.backendUrl}/player/${id}`);
+        return this.httpClient.delete<Player['id']>(`${this.url}/player/${id}`);
     }
 
     editPlayer(player: Omit<Player, 'playedGames' | 'creationDate' | 'updateDate'>) {
-        return this.httpClient.patch<Player>(`${environment.backendUrl}/player/${player.id}`, player);
+        return this.httpClient.patch<Player>(`${this.url}/player/${player.id}`, player);
     }
 
     getGames() {
-        return this.httpClient.get<Games>(`${environment.backendUrl}/games`).pipe(
+        return this.httpClient.get<Games>(`${this.url}/games`).pipe(
             map(this.correctGames)
         )
     }
 
     addGame(game: Omit<Game, 'id' | 'winner'>) {
-        return this.httpClient.put<Game>(`${environment.backendUrl}/game`, game).pipe(
+        return this.httpClient.put<Game>(`${this.url}/game`, game).pipe(
             map(this.correctGames)
         )
     }

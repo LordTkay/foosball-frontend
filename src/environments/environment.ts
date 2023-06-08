@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   pointToWin: 6,
 
-  backendUrl: 'localhost:4200/api',
+  backendPort: '4200',
 };
 
 /*
