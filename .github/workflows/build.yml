@@ -76,6 +76,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: dist-folder
+          path: dist/
           
       - name: Display structure of downloaded files
         run: ls -R
