@@ -1,6 +1,4 @@
-import {Component} from '@angular/core';
-import {ResolveEnd, Router} from "@angular/router";
-import {filter, take} from "rxjs";
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -9,16 +7,4 @@ import {filter, take} from "rxjs";
 })
 export class AppComponent {
   title = 'foosball-frontend';
-  loading = true;
-
-  constructor(private router: Router) {
-    router.events
-      .pipe(
-        filter((event): event is ResolveEnd => event instanceof ResolveEnd),
-        take(1)
-      )
-      .subscribe(x => {
-        this.loading = false;
-      })
-  }
 }
