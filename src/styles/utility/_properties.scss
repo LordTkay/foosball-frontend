@@ -1,0 +1,15 @@
+@use '../abstract/mixins';
+@use '../abstract/variables';
+
+:root {
+  @include mixins.get-property-map(variables.$colors, 'color') using($key, $value) {
+    --#{$key}: #{$value};
+  }
+
+  @include mixins.get-property-map(variables.$font-sizes, 'font-size') using($key, $value) {
+    --#{$key}: #{$value};
+  }
+
+  --color-font: var(--color-secondary-500);
+  --animation-duration: 300ms;
+}

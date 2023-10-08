@@ -1,8 +1,0 @@
-@use '../abstract/mixins';
-@use '../abstract/variables';
-
-:root {
-  @include mixins.get-property-map(variables.$colors, 'color') using($key, $value) {
-    --#{$key}: #{$value};
-  }
-}
