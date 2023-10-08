@@ -1,47 +1,8 @@
+@use '../abstract/mixins';
+@use '../abstract/variables';
+
 :root {
-  --color-primary: 43 100% 52%;
-  --color-secondary: 0 5% 21%;
-
-  --color-success: 120 65% 59%;
-  --color-error: 0 88% 61%;
-  --color-neutral: 0 0% 50%;
-
-  --color-background-dark: #121212;
-
-  --background-color: var(--color-neutral);
-  --background-alpha: 0.2;
-  --background-alpha-hover: 0.25;
-  --background-alpha-focus: 0.35;
-}
-
-
-@mixin glassy-element {
-  transition: background-color 200ms ease-in-out,
-  color 200ms ease-in-out;
-  background-color: hsl(var(--background-color) / var(--background-alpha));
-
-  &:focus-visible,
-  &:hover {
-    outline: none;
+  @include mixins.get-property-map(variables.$colors, 'color') using($key, $value) {
+    --#{$key}: #{$value};
   }
-
-  &:not(.disabled):not(:disabled) {
-    &:hover {
-      background-color: hsl(var(--background-color) / var(--background-alpha-hover));
-    }
-
-    &:focus-visible {
-      background-color: hsl(var(--background-color) / var(--background-alpha-focus));
-    }
-  }
-
-  &:disabled,
-  &.disabled {
-    opacity: 50%;
-    cursor: not-allowed;
-  }
-}
-
-.glassy-element {
-  @include glassy-element;
 }

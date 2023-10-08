@@ -1,1 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
+
+@layer reset {
+  @import "styles/reset";
+}
+
+@layer utility {
+  @import "styles/utility";
+}
+
+body {
+  font-family: Roboto, sans-serif;
+}
