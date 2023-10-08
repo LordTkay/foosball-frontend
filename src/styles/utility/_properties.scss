@@ -10,6 +10,7 @@
     --#{$key}: #{$value};
   }
 
-  --color-font: var(--color-secondary-500);
+  --color-page-font: var(--color-secondary-500);
+  --color-page-background: var(--color-neutral-500);
   --animation-duration: 300ms;
 }

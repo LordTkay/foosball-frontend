@@ -1,32 +1,6 @@
-<button type="button"
-        class="menu-button"
-        (click)="changeState()"
-        [attr.data-state]="state">
-  <span class="icon material-symbols-rounded">{{ state === 'expanded' ? 'close' : 'menu' }}</span>
-</button>
-
-
-<ul class="menu-items"
-    *ngIf="state === 'expanded'"
-    @expandCollapse>
-  <li class="menu-item">
-    <a href="" class="menu-link">
-      <span class="icon material-symbols-rounded">person</span>
-      <span class="menu-link-title">Account</span>
-    </a>
-  </li>
-
-  <li class="menu-item">
-    <a href="" class="menu-link">
-      <span class="icon material-symbols-rounded">scoreboard</span>
-      <span class="menu-link-title">Scoreboard</span>
-    </a>
-  </li>
-
-  <li class="menu-item">
-    <a href="" class="menu-link">
-      <span class="icon material-symbols-rounded">bar_chart</span>
-      <span class="menu-link-title">Statistics</span>
-    </a>
-  </li>
-</ul>
+<div class="buttons">
+  <button type="button" class="pill-button context-button">
+    <span class="icon material-symbols-rounded">add</span>
+  </button>
+  <app-navigation/>
+</div>
