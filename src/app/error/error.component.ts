@@ -1,4 +1,4 @@
-import { Component, input, numberAttribute } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component({
     selector: 'app-error',
@@ -7,5 +7,5 @@ import { Component, input, numberAttribute } from '@angular/core';
     styleUrl: './error.component.scss'
 })
 export class ErrorComponent {
-    status = input<number>(404);
+    status = input<number>();
 }
