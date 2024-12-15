@@ -1,1 +1,11 @@
-<p>games works!</p>
+@if (!loading()) {
+
+    @for (game of games(); track game.id) {
+
+        <p>{{game.id }}</p>
+
+    }
+
+} @else if (loading()) {
+    <app-loading/>
+}
