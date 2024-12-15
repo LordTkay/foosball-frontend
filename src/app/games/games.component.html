@@ -4,11 +4,10 @@
 
         <fieldset class="games-of-day-container">
             <legend class="game-date">
-                <b>{{ group.key | date : 'dd.MM.YYYY'}}</b>
+                <b>{{ group.key | date : 'dd.MM.YYYY' }}</b>
             </legend>
-            @for (game of group.value; track game.id) {
-                <app-game [game]="game"/>
-
+            @for (entry of group.value; track entry.game.id) {
+                <app-game [game]="entry.game" [players]="entry.players"/>
             }
         </fieldset>
     }
