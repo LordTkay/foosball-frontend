@@ -1,0 +1,15 @@
+:host {
+  display: grid;
+  place-content: center;
+  height: 100%;
+  text-align: center;
+}
+.error {
+  &-code {
+    font-size: 8rem;
+  }
+
+  &-message {
+    font-size: 1.5rem;
+  }
+}

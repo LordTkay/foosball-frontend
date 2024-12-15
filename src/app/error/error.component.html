@@ -1,0 +1,13 @@
+@let statusCode = status() ?? 404;
+
+<h2 class="error-code">{{statusCode}}</h2>
+<p class="error-message">
+@switch (statusCode) {
+    @case (404) {
+        Die Seite konnte nicht gefunden werden!
+    }
+    @default {
+        Ein Fehler ist aufgetreten
+    }
+}
+</p>
