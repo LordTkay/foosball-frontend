@@ -1,3 +1,5 @@
+@use "sass:map";
+
 $breakpoints: (
         xs: 0,
         sm: 576px, // mobile landscape, tablet (portrait)
@@ -7,7 +9,7 @@ $breakpoints: (
 );
 
 @mixin min($key) {
-  $value: map-get($breakpoints, $key);
+  $value: map.get($breakpoints, $key);
   @if $value {
     @media (min-width: $value) {
       @content;
