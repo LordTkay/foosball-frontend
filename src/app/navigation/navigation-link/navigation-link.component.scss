@@ -1,0 +1,29 @@
+
+.nav-link {
+  color: inherit;
+  text-decoration: none;
+  padding: var(--space-sm);
+  display: flex;
+  gap: var(--space-sm);
+  align-items: center;
+  position: relative;
+
+  &:hover {
+    --selection-color: rgba(255, 255, 255, 0.2);
+  }
+
+  &.active {
+    --selection-color: white;
+  }
+
+  &::after {
+    content: "";
+    display: block;
+    height: 2px;
+    background: var(--selection-color);
+    position: absolute;
+    transition: background 200ms ease-in-out;
+
+    inset: auto 0 0 0;
+  }
+}

@@ -1,0 +1,18 @@
+$breakpoints: (
+        xs: 0,
+        sm: 576px, // mobile landscape, tablet (portrait)
+        md: 768px, // chromebooks, ipad pro (portrait), tablet (landscape)
+        lg: 992px, // most laptops and desktops
+        xl: 1200px // 2k and up
+);
+
+@mixin min($key) {
+  $value: map-get($breakpoints, $key);
+  @if $value {
+    @media (min-width: $value) {
+      @content;
+    }
+  } @else {
+    @error "Breakpoint #{$key} not found in map.";
+  }
+}

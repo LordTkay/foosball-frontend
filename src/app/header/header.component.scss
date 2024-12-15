@@ -1,0 +1,15 @@
+:host {
+  background-color: #1b1818;
+  color: #ffffff;
+  padding-block: 0.5rem;
+}
+
+.header {
+  display: flex;
+  gap: var(--space-md);
+  align-items: center;
+}
+
+.page-title {
+  flex: 1;
+}
