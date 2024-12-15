@@ -1,0 +1,11 @@
+.games-of-day-container {
+  border-radius: var(--border-radius);
+  border: 2px solid var(--neutral-200);
+
+  padding: var(--space-sm);
+  margin-bottom: var(--space-md);
+}
+
+.game-date {
+  padding-inline: var(--space-sm);
+}
