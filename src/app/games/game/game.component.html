@@ -1,24 +1,29 @@
-<div class="team team-black">
+<div class="team team-black" [class.winner]="game().winner === 'black'">
     <div class="players">
-        <app-player-icon [colorFrom]="colorFromBlack()"
+        <app-player-icon class="reverse"
+                         [colorFrom]="colorFromBlack()"
                          [colorTo]="colorToBlack()"
-                         [player]="players().black.defender"/>
-        <app-player-icon [colorFrom]="colorFromBlack()"
+                         [player]="players().black.defender"
+                         icon="shield"/>
+        <app-player-icon class="reverse"
+                         [colorFrom]="colorFromBlack()"
                          [colorTo]="colorToBlack()"
-                         [player]="players().black.attacker"/>
+                         [player]="players().black.attacker"
+                         icon="swords"/>
     </div>
     <div class="score">{{ game().scores.black }}</div>
 </div>
-
 <p>vs</p>
-<div class="team team-yellow">
+<div class="team team-yellow" [class.winner]="game().winner === 'yellow'">
     <div class="score">{{ game().scores.yellow }}</div>
     <div class="players">
         <app-player-icon [colorFrom]="colorFromYellow()"
                          [colorTo]="colorToYellow()"
-                         [player]="players().yellow.attacker"/>
+                         [player]="players().yellow.attacker"
+                         icon="swords"/>
         <app-player-icon [colorFrom]="colorFromYellow()"
                          [colorTo]="colorToYellow()"
-                         [player]="players().yellow.defender"/>
+                         [player]="players().yellow.defender"
+                         icon="shield"/>
     </div>
 </div>

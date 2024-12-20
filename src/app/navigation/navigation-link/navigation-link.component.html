@@ -1,7 +1,7 @@
 <li class="nav-item">
     <a class="nav-link" [routerLink]="link()" routerLinkActive="active">
         @if (icon()) {
-            <span class="material-symbols-outlined">{{icon()}}</span>
+            <span class="material-symbols-rounded">{{icon()}}</span>
         }
         <span><ng-content/></span>
     </a>

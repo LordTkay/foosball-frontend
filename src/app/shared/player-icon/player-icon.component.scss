@@ -1,4 +1,21 @@
+@use "../../../styles/breakpoint";
+
 :host {
+  display: flex;
+  justify-content: center;
+  border-radius: 9999px;
+  background: #e4e4e4;
+}
+
+:host.reverse {
+  flex-direction: row-reverse;
+
+  .name {
+    margin-inline: 1rem 0.5rem;
+  }
+}
+
+.bubble {
   display: grid;
   place-items: center;
   text-align: center;
@@ -6,4 +23,58 @@
   border-radius: 50%;
   height: 2.5rem;
   width: 2.5rem;
+  user-select: none;
+  position: relative;
+}
+
+.icon {
+  position: absolute;
+  display: grid;
+  place-content: center;
+  inset: 0;
+  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24
+}
+
+.name {
+  display: none;
+
+  place-content: center;
+  justify-content: start;
+  margin-inline: 0.5rem 1rem;
+  color: var(--font-color);
+  min-width: 4rem;
+  text-align: left;
+
+  @include breakpoint.min('md') {
+    display: grid;
+  }
+}
+
+@include breakpoint.min('md') {
+  .initials {
+    opacity: 0;
+  }
+}
+
+
+@include breakpoint.max('md') {
+  .bubble:hover,
+  .bubble:active {
+    .initials {
+      opacity: 0;
+    }
+
+    .icon {
+      opacity: 1;
+    }
+  }
+
+  .icon {
+    opacity: 0;
+  }
+
+  .initials,
+  .icon {
+    transition: opacity 200ms ease-in-out;
+  }
 }

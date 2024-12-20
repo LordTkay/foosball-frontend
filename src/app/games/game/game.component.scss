@@ -1,3 +1,7 @@
+@use '../../../styles/breakpoint';
+
+$color-black-font: white;
+
 :host,
 .team,
 .players {
@@ -11,7 +15,7 @@
 
   &-black {
     --color-background: #641797;
-    color: white;
+    color: $color-black-font;
   }
 
   &-yellow {
@@ -25,9 +29,15 @@
   height: 100%;
   min-width: 4ch;
   text-align: center;
-  background-color: var(--color-background);
-
+  border: 1px solid var(--color-background);
   border-radius: var(--border-radius);
+  font-weight: bold;
+  color: var(--font-color);
+
+  .winner > & {
+    background-color: var(--color-background);
+    color: $color-black-font;
+  }
 }
 
 .players {

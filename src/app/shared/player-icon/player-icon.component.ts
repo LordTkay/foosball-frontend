@@ -16,6 +16,7 @@ export class PlayerIconComponent {
 
     colorFrom = input.required<string>()
     colorTo = input.required<string>()
+    icon = input<string | null | undefined>(null)
 
     @HostBinding('style.--bubble-color')
     get playerColor() {

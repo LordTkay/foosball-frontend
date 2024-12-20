@@ -12,7 +12,7 @@ import { Game } from "../../shared/model/game.model";
     styleUrl: './game.component.scss'
 })
 export class GameComponent {
-    game = input.required<Game>();
+    game = input.required<Game>()
     players = input.required<PlayersPerTeam>()
 
     colorFromYellow = signal('rgb(205,192,175)')

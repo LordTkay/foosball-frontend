@@ -18,3 +18,14 @@ $breakpoints: (
     @error "Breakpoint #{$key} not found in map.";
   }
 }
+
+@mixin max($key) {
+  $value: map.get($breakpoints, $key);
+  @if $value {
+    @media (max-width: $value - 1) {
+      @content;
+    }
+  } @else {
+    @error "Breakpoint #{$key} not found in map.";
+  }
+}
