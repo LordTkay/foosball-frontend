@@ -1,8 +1,39 @@
-:host {
+:host,
+.team,
+.players {
   display: flex;
+  align-items: center;
   gap: var(--space-sm);
 }
 
-.black-team {
-  color: white;
+.team {
+  flex: 1;
+
+  &-black {
+    --color-background: #641797;
+    color: white;
+  }
+
+  &-yellow {
+    --color-background: #e8c53a;
+    justify-content: right;
+  }
+}
+
+.score {
+  padding: 0.5rem 0.5rem;
+  height: 100%;
+  min-width: 4ch;
+  text-align: center;
+  background-color: var(--color-background);
+
+  border-radius: var(--border-radius);
+}
+
+.players {
+  flex: 1;
+
+  .team-yellow & {
+    flex-direction: row-reverse;
+  }
 }

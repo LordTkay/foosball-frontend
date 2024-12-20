@@ -1,15 +1,24 @@
-<app-player-icon [colorFrom]="colorFromBlack()"
-                 [colorTo]="colorToBlack()"
-                 [player]="players().black.defender"
-                 class="black-team"/>
-<app-player-icon [colorFrom]="colorFromBlack()"
-                 [colorTo]="colorToBlack()"
-                 [player]="players().black.attacker"
-                 class="black-team"/>
+<div class="team team-black">
+    <div class="players">
+        <app-player-icon [colorFrom]="colorFromBlack()"
+                         [colorTo]="colorToBlack()"
+                         [player]="players().black.defender"/>
+        <app-player-icon [colorFrom]="colorFromBlack()"
+                         [colorTo]="colorToBlack()"
+                         [player]="players().black.attacker"/>
+    </div>
+    <div class="score">{{ game().scores.black }}</div>
+</div>
 
-<app-player-icon [colorFrom]="colorFromYellow()"
-                 [colorTo]="colorToYellow()"
-                 [player]="players().yellow.attacker"/>
-<app-player-icon [colorFrom]="colorFromYellow()"
-                 [colorTo]="colorToYellow()"
-                 [player]="players().yellow.defender"/>
+<p>vs</p>
+<div class="team team-yellow">
+    <div class="score">{{ game().scores.yellow }}</div>
+    <div class="players">
+        <app-player-icon [colorFrom]="colorFromYellow()"
+                         [colorTo]="colorToYellow()"
+                         [player]="players().yellow.attacker"/>
+        <app-player-icon [colorFrom]="colorFromYellow()"
+                         [colorTo]="colorToYellow()"
+                         [player]="players().yellow.defender"/>
+    </div>
+</div>

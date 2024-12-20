@@ -15,9 +15,9 @@ export class GameComponent {
     game = input.required<Game>();
     players = input.required<PlayersPerTeam>()
 
-    colorFromYellow = signal('rgb(179, 140, 114)')
-    colorToYellow = signal('rgb(246, 214, 9)')
+    colorFromYellow = signal('rgb(205,192,175)')
+    colorToYellow = signal('rgb(163,149,133)')
 
-    colorFromBlack = signal('rgb(29,17,30)')
-    colorToBlack = signal('rgb(97,15,138)')
+    colorFromBlack = signal('rgb(139,112,151)')
+    colorToBlack = signal('rgb(94,84,99)')
 }
