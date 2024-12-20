@@ -1,4 +1,4 @@
-import { Player } from "../../players/model/player.model";
+import { Player } from "./player.model";
 
 export const TEAMS = {
     YELLOW: 'yellow',

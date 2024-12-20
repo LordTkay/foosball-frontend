@@ -1,7 +1,7 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
-import { Player, Players } from "./model/player.model";
-import { BackendClientService } from "../shared/backend-client.service";
+import { BackendClientService } from "./backend-client.service";
 import { tap } from "rxjs";
+import { Player, Players } from './model/player.model';
 
 type State = {
     playersMap: Map<Player['id'], Player>

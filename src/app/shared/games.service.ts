@@ -1,5 +1,5 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
-import { BackendClientService } from "../shared/backend-client.service";
+import { BackendClientService } from "./backend-client.service";
 import { Game, Games } from "./model/game.model";
 import { tap } from "rxjs";
 

@@ -1,16 +1,14 @@
 import { Component, computed, effect, inject, ResourceStatus } from '@angular/core';
-import { GamesService } from "./games.service";
 import { Router } from "@angular/router";
 import { rxResource } from "@angular/core/rxjs-interop";
 import { LoadingComponent } from "../shared/loading/loading.component";
 import { HttpErrorResponse } from "@angular/common/http";
-import { Game, Games } from "./model/game.model";
 import { DatePipe, KeyValuePipe } from "@angular/common";
-import { PlayersService } from "../players/players.service";
-import { Player, Players } from "../players/model/player.model";
 import { GameComponent } from "./game/game.component";
-import { TeamPositions, TeamSide } from "./model/team.model";
 import { PlayersPerTeam } from "./game/players-per-team.model";
+import { PlayersService } from "../shared/players.service";
+import { GamesService } from "../shared/games.service";
+import { Game } from "../shared/model/game.model";
 
 @Component({
     selector: 'app-games',
@@ -36,7 +34,7 @@ export class GamesComponent {
         loader: () => this.playersService.fetchPlayers()
     })
     groupedGames = computed(() => {
-        const gamesPerDay = new Map<string, Array<{game: Game, players: PlayersPerTeam}>>()
+        const gamesPerDay = new Map<string, Array<{ game: Game, players: PlayersPerTeam }>>()
 
         if (this.playersResource.status() !== ResourceStatus.Resolved ||
             this.gamesResource.status() !== ResourceStatus.Resolved) {

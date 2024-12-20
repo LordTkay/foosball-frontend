@@ -1,0 +1,9 @@
+:host {
+  display: grid;
+  place-items: center;
+  text-align: center;
+  background: var(--bubble-color);
+  border-radius: 50%;
+  height: 2.5rem;
+  width: 2.5rem;
+}

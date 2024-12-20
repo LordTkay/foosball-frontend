@@ -1,5 +1,15 @@
+<app-player-icon [colorFrom]="colorFromBlack()"
+                 [colorTo]="colorToBlack()"
+                 [player]="players().black.defender"
+                 class="black-team"/>
+<app-player-icon [colorFrom]="colorFromBlack()"
+                 [colorTo]="colorToBlack()"
+                 [player]="players().black.attacker"
+                 class="black-team"/>
 
-<app-player-icon [player]="players().black.defender"/>
-<app-player-icon [player]="players().black.attacker"/>
-<app-player-icon [player]="players().yellow.attacker"/>
-<app-player-icon [player]="players().yellow.defender"/>
+<app-player-icon [colorFrom]="colorFromYellow()"
+                 [colorTo]="colorToYellow()"
+                 [player]="players().yellow.attacker"/>
+<app-player-icon [colorFrom]="colorFromYellow()"
+                 [colorTo]="colorToYellow()"
+                 [player]="players().yellow.defender"/>
