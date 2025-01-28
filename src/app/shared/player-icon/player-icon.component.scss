@@ -1,10 +1,16 @@
 @use "../../../styles/breakpoint";
 
+
+
 :host {
   display: flex;
-  justify-content: center;
   border-radius: 9999px;
   background: #e4e4e4;
+  overflow: hidden;
+
+  @include breakpoint.min('md') {
+    width: 100%;
+  }
 }
 
 :host.reverse {
@@ -23,6 +29,7 @@
   border-radius: 50%;
   height: 2.5rem;
   width: 2.5rem;
+  flex-shrink: 0;
   user-select: none;
   position: relative;
 }
@@ -39,14 +46,17 @@
   display: none;
 
   place-content: center;
-  justify-content: start;
   margin-inline: 0.5rem 1rem;
   color: var(--font-color);
-  min-width: 4rem;
   text-align: left;
 
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+
   @include breakpoint.min('md') {
-    display: grid;
+    display: block;
   }
 }
 
@@ -55,7 +65,6 @@
     opacity: 0;
   }
 }
-
 
 @include breakpoint.max('md') {
   .bubble:hover,

@@ -8,10 +8,12 @@ $color-black-font: white;
   display: flex;
   align-items: center;
   gap: var(--space-sm);
+  overflow: hidden;
 }
 
 .team {
   flex: 1;
+  gap: var(--space-xl);
 
   &-black {
     --color-background: #641797;
